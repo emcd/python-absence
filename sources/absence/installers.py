@@ -18,19 +18,28 @@
 #============================================================================#
 
 
-''' Sentinel for absent values. '''
+''' Convenience to expose global sentinel and sentinel checker in builtins. '''
 
+
+from __future__ import annotations
 
 from . import __
-from . import exceptions
-from . import installers
-from . import objects
-
-from .installers import *
-from .objects import *
 
 
-__version__ = '1.0a0'
-
-
-__.reclassify_modules( __name__, recursive = True )
+def install(
+    sentinel_name: __.typx.Annotated[
+        str | None,
+        __.typx.Doc(
+            ''' Name to use for sentinel in builtins. ``None`` to skip. ''' )
+    ] = 'Absent', # Follows builtins convention: Ellipsis, None, NotImplemented
+    predicate_name: __.typx.Annotated[
+        str | None,
+        __.typx.Doc(
+            ''' Name to use for predicate in builtins. ``None`` to skip. ''' )
+    ] = 'isabsent', # Follows builtins convention: isinstance, issubclass
+) -> None:
+    ''' Installs absence sentinel and predicate as builtins. '''
+    builtins = __import__( 'builtins' )
+    from .objects import absent, is_absent
+    if sentinel_name: setattr( builtins, sentinel_name, absent )
+    if predicate_name: setattr( builtins, predicate_name, is_absent )

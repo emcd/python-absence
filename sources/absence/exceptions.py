@@ -28,9 +28,8 @@
 from . import __
 
 
-class Omniexception( BaseException ):
+class Omniexception( __.ImmutableObject, BaseException ):
     ''' Base for all exceptions raised by package API. '''
-    # TODO: Class and instance attribute concealment and immutability.
 
     _attribute_visibility_includes_: __.cabc.Collection[ str ] = (
         frozenset( ( '__cause__', '__context__', ) ) )
@@ -38,3 +37,10 @@ class Omniexception( BaseException ):
 
 class Omnierror( Omniexception, Exception ):
     ''' Base for error exceptions raised by package API. '''
+
+
+class OperationValidityError( Omnierror, RuntimeError, TypeError ):
+    ''' Attempt to perform invalid operation. '''
+
+    def __init__( self, name: str ) -> None:
+        super( ).__init__( f"Operation {name!r} is not valid on this object." )
