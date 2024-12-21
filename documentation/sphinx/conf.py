@@ -79,8 +79,11 @@ nitpick_ignore = [
       "v, remove specified key and return the corresponding value." ),
     # Type annotation weirdnesses.
     ( 'py:class', "Doc" ),
+    ( 'py:class', "falsifier.objects.Falsifier" ),
     ( 'py:class', "types.Annotated" ),
     ( 'py:class', "typing_extensions.Any" ),
+    ( 'py:class', "typing_extensions.Self" ),
+    ( 'py:class', "typing_extensions.TypeIs" ),
 ]
 
 # -- Options for linkcheck builder -------------------------------------------

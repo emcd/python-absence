@@ -23,14 +23,12 @@
 
 from __future__ import annotations
 
-from falsifier import Falsifier as _Falsifier
+import falsifier as _falsifier
 
 from . import __
 
 
-# TODO: Version of 'falsifier.Falsifier' derived directly from 'type'.
-#class AbsenceFactory( _Falsifier, __.ImmutableObject ):
-class AbsenceFactory( _Falsifier ):
+class AbsenceFactory( _falsifier.Falsifier ):
     ''' Produces arbitrary absence sentinels. '''
 
     def __init__(
@@ -46,6 +44,7 @@ class AbsenceFactory( _Falsifier ):
     ) -> None:
         self._repr_function = repr_function
         self._str_function = str_function
+        super( ).__init__( )
 
     def __repr__( self ) -> str:
         if self._repr_function is not None:
@@ -57,13 +56,14 @@ class AbsenceFactory( _Falsifier ):
             return self._str_function( self )
         return 'absence'
 
-    def __reduce__( self ) -> str | __.typx.Never:
+    def __reduce__( self ) -> __.typx.Never:
         from .exceptions import OperationValidityError
         raise OperationValidityError( 'pickle' )
 
 
 class AbsentSingleton( AbsenceFactory ):
     ''' Produces global absence sentinel. '''
+    # TODO: Instance immutability after initialization.
 
     def __new__( selfclass ) -> __.typx.Self:
         absent_ = globals( ).get( 'absent' )

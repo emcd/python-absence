@@ -27,7 +27,39 @@ API
 Package ``absence``
 ===============================================================================
 
-.. todo:: Provide package description.
+A sentinel for absent values, distinct from ``None``, with support for creating
+package-specific absence sentinels. Particularly useful in contexts where
+``None`` is a valid value but you need to detect the absence of a value.
+
+* ``absent``: Global sentinel representing absence, with falsey behavior and
+  identity-based equality.
+
+* ``AbsenceFactory``: Creates package-specific absence sentinels with
+  customizable string representations.
+
+* ``Absential``: Type alias for values that may be absent, supporting clear
+  type hints.
+
+* ``is_absent``: Type-safe predicate for checking if a value is the global
+  absence sentinel.
+
+* ``is_absence``: Type-safe predicate for checking if a value is any absence
+  sentinel.
+
+* ``install``: Optional function to install absence sentinel and predicates as
+  builtins.
+
+
+Module ``absence.objects``
+-------------------------------------------------------------------------------
+
+.. automodule:: absence.objects
+
+
+Module ``absence.installers``
+-------------------------------------------------------------------------------
+
+.. automodule:: absence.installers
 
 
 Module ``absence.exceptions``
