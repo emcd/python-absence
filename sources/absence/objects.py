@@ -92,4 +92,14 @@ def is_absent( value: object ) -> __.typx.TypeIs[ AbsentSingleton ]:
     return absent is value
 
 
-Absential = __.typx.TypeVar( 'V' ) | AbsentSingleton
+# Note: Separate typevar definition because it is less confusing to Pyright.
+_V = __.typx.TypeVar( '_V' )
+Absential: __.typx.TypeAlias = _V | AbsentSingleton
+
+
+def _typecheck_me( arg: Absential[ int ] = absent ):
+    # Note: Not part of public interface.
+    #       Exists to help identify type issues
+    #       since test code is exempt from type checking at this time.
+    if is_absent( arg ): return 'absent'
+    return arg
