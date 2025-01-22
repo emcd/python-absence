@@ -2,6 +2,16 @@
 
 .. towncrier release notes start
 
+Absence 1.0.1 (2025-01-21)
+==========================
+
+Bugfixes
+--------
+
+- Convert ``Absential`` to proper type alias and to use separately-declared type
+  variable. (Addresses Pyright complaints.)
+
+
 Absence 1.0 (2024-12-20)
 ========================
 
