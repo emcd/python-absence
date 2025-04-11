@@ -88,7 +88,7 @@ strict-naming = false
 [tool.hatch.build.targets.wheel.sources]
 'sources/absence' = 'absence'
 # --- BEGIN: Injected by Copier ---
-# --- END: Injected by Copier --- 
+# --- END: Injected by Copier ---
 [tool.hatch.envs.default]
 python = '3.10'
 [tool.hatch.envs.develop]
@@ -98,7 +98,7 @@ dependencies = [
   'coverage[toml]',
   'emcd-projects',
   'furo',
-  'icecream-truck',
+  'icecream',
   'packaging',
   'pre-commit',
   'pyright',
