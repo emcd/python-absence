@@ -20,8 +20,6 @@
 
 ''' Assert correct function of builtin installation. '''
 
-# pylint: disable=no-member,redefined-outer-name,unused-argument
-
 
 import builtins
 

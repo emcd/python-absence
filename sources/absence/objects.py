@@ -68,7 +68,7 @@ class AbsentSingleton( AbsenceFactory ):
     def __new__( selfclass ) -> __.typx.Self:
         absent_ = globals( ).get( 'absent' )
         if isinstance( absent_, selfclass ): return absent_
-        return super( ).__new__( selfclass ) # type: ignore
+        return super( ).__new__( selfclass )
 
     def __repr__( self ) -> str:
         return 'absence.absent'

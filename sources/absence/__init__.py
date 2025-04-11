@@ -22,9 +22,9 @@
 
 
 from . import __
+# --- BEGIN: Injected by Copier ---
 from . import exceptions
-from . import installers
-from . import objects
+# --- END: Injected by Copier ---
 
 from .installers import *
 from .objects import *

@@ -20,7 +20,6 @@
 
 ''' Common imports and type aliases used throughout the package. '''
 
-# pylint: disable=unused-import
 # ruff: noqa: F401
 
 
@@ -30,6 +29,8 @@ import collections.abc as cabc
 import types
 
 import typing_extensions as typx
+# --- BEGIN: Injected by Copier ---
+# --- END: Injected by Copier ---
 
 
 ComparisonResult: typx.TypeAlias = bool | types.NotImplementedType

@@ -38,7 +38,7 @@ def test_101_singleton_boolean_evaluation( ):
     ''' Global sentinel evaluates to False. '''
     module = cache_import_module( f"{PACKAGE_NAME}.objects" )
     assert not module.absent
-    assert False is bool( module.absent )  # noqa: E712
+    assert False is bool( module.absent )
 
 
 def test_102_singleton_string_representations( ):
@@ -62,7 +62,7 @@ def test_201_factory_boolean_evaluation( ):
     module = cache_import_module( f"{PACKAGE_NAME}.objects" )
     obj = module.AbsenceFactory( )
     assert not obj
-    assert False is bool( obj )  # noqa: E712
+    assert False is bool( obj )
 
 
 def test_202_factory_default_strings( ):

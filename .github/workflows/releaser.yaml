@@ -24,17 +24,16 @@ jobs:
 
   test:
     needs: [initialize]
-    uses: emcd/python-project-common/.github/workflows/xrepo--tester.yaml@v1.8.1
+    uses: emcd/python-project-common/.github/workflows/xrepo--tester.yaml@v1.16
     with:
       matrix-exclusions: '${{ needs.initialize.outputs.matrix-exclusions }}'
       platforms: '${{ needs.initialize.outputs.platforms }}'
       python-descriptors: '${{ needs.initialize.outputs.python-descriptors }}'
       python-versions: '${{ needs.initialize.outputs.python-versions }}'
-      
 
   report:
     needs: [initialize, test]
-    uses: emcd/python-project-common/.github/workflows/xrepo--reporter.yaml@v1.8.1
+    uses: emcd/python-project-common/.github/workflows/xrepo--reporter.yaml@v1.16
     with:
       python-version: '${{ fromJSON(needs.initialize.outputs.python-versions)[0] }}'
 
@@ -44,14 +43,14 @@ jobs:
       contents: write
       id-token: write
       pages: write
-    uses: emcd/python-project-common/.github/workflows/xrepo--documenter.yaml@v1.8.1
+    uses: emcd/python-project-common/.github/workflows/xrepo--documenter.yaml@v1.16
     with:
       include-reports: true
       python-version: '${{ fromJSON(needs.initialize.outputs.python-versions)[0] }}'
 
   package:
     needs: [initialize, docsgen]
-    uses: emcd/python-project-common/.github/workflows/xrepo--packager.yaml@v1.8.1
+    uses: emcd/python-project-common/.github/workflows/xrepo--packager.yaml@v1.16
     with:
       artifacts-path: '.auxiliary/artifacts/hatch-build' # TODO: Use environment.
       python-version: '${{ fromJSON(needs.initialize.outputs.python-versions)[0] }}'
@@ -83,7 +82,12 @@ jobs:
 
   publish-github:
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    needs: [initialize, package, publish-pypi]
+    needs:
+      - initialize
+      - package
+      - publish-pypi
+      # --- BEGIN: Injected by Copier ---
+      # --- END: Injected by Copier ---
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -91,7 +95,7 @@ jobs:
     steps:
 
       - name: Prepare Python
-        uses: emcd/python-project-common/.github/actions/python-hatch@v1.8.1
+        uses: emcd/python-project-common/.github/actions/python-hatch@v1.16
         with:
           python-version: ${{ fromJSON(needs.initialize.outputs.python-versions)[0] }}
 
@@ -105,21 +109,22 @@ jobs:
         run: |
           set -eu -o pipefail
           cd ${{ env.DISTRIBUTIONS_PATH }}
-          sha256sum *.tar.gz *.whl >SHA256SUMS.txt
+          sha256sum absence-* >SHA256SUMS.txt
 
       - name: Sign Distributions
         uses: sigstore/gh-action-sigstore-python@v3.0.0
         with:
           inputs: >-
             ${{ env.DISTRIBUTIONS_PATH }}/SHA256SUMS.txt
-            ${{ env.DISTRIBUTIONS_PATH }}/*.tar.gz
-            ${{ env.DISTRIBUTIONS_PATH }}/*.whl
+            ${{ env.DISTRIBUTIONS_PATH }}/absence-*
 
       - name: Generate Release Notes
         run: |
+          set -eu -o pipefail
           hatch --env develop run \
             towncrier build --draft --version ${GITHUB_REF_NAME} \
-            > release-notes.rst
+            >.auxiliary/artifacts/tc-release-notes.rst
+          cp .auxiliary/artifacts/tc-release-notes.rst .auxiliary/artifacts/release-notes.rst
 
       - name: Create Release
         env:
@@ -127,7 +132,7 @@ jobs:
         run: |
           gh release create '${{ github.ref_name }}' \
             --repo '${{ github.repository }}' \
-            --notes-file release-notes.rst
+            --notes-file .auxiliary/artifacts/release-notes.rst
 
       - name: Publish Artifacts
         env:
