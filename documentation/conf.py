@@ -1,3 +1,6 @@
+# vim: set filetype=python fileencoding=utf-8:
+# -*- mode: python ; coding: utf-8 -*-
+
 ''' Configuration file for the Sphinx documentation builder.
 
     This file only contains a selection of the most common options.
@@ -7,15 +10,13 @@
         https://jareddillard.com/blog/common-ways-to-customize-sphinx-themes.html
 '''
 
-# mypy: ignore-errors
-# pylint: disable=consider-using-namedtuple-or-dataclass
 # ruff: noqa: E402,F401
 
 
 def _calculate_copyright_notice( ):
-    from datetime import datetime as DateTime
+    from datetime import datetime as DateTime, timezone as TimeZone
     first_year = 2024
-    now_year = DateTime.utcnow( ).year
+    now_year = DateTime.now( TimeZone.utc ).year
     if first_year < now_year: year_range = f"{first_year}-{now_year}"
     else: year_range = str( first_year )
     return f"{year_range}, Eric McDonald"
@@ -25,7 +26,7 @@ def _import_version( ):
     from importlib import import_module
     from pathlib import Path
     from sys import path
-    project_location = Path( __file__ ).parent.parent.parent
+    project_location = Path( __file__ ).parent.parent
     path.insert( 0, str( project_location / 'sources' ) )
     module = import_module( 'absence' )
     return module.__version__
@@ -36,7 +37,7 @@ def _import_version( ):
 
 project = 'python-absence'
 author = 'Eric McDonald'
-copyright = ( # pylint: disable=redefined-builtin
+copyright = ( # noqa: A001
     _calculate_copyright_notice( ) )
 release = version = _import_version( )
 
@@ -79,7 +80,10 @@ nitpick_ignore = [
       "v, remove specified key and return the corresponding value." ),
     # Type annotation weirdnesses.
     ( 'py:class', "Doc" ),
-    ( 'py:class', "falsifier.objects.Falsifier" ),
+    ( 'py:class', "absence.objects._V" ),
+    ( 'py:class', "builtins.NotImplementedType" ),
+    ( 'py:class', "classcore.standard.classes.Object" ),
+    ( 'py:class', "falsifier.classes.Falsifier" ),
     ( 'py:class', "types.Annotated" ),
     ( 'py:class', "typing_extensions.Any" ),
     ( 'py:class', "typing_extensions.Self" ),
@@ -98,6 +102,8 @@ linkcheck_ignore = [
     r'https://github\.com/emcd/python-absence/.*',
     # Package does not exist during initial development.
     r'https://pypi.org/project/absence/',
+    # Github aggressively rate-limits access to certain blobs.
+    r'https://github\.com/.*/.*/blob/.*',
 ]
 
 # -- Options for HTML output -------------------------------------------------
@@ -117,13 +123,13 @@ html_static_path = [ '_static' ]
 
 autodoc_default_options = {
     'member-order': 'groupwise',
-    'imported-members': False,
-    'inherited-members': True,
+    'members': True,
     'show-inheritance': True,
-    'undoc-members': True,
+    # 'special-members': '__call__',
 }
 
-#autodoc_typehints = 'description'
+autodoc_typehints = 'none'
+autodoc_use_type_comments = False
 
 # -- Options for intersphinx extension ---------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#configuration

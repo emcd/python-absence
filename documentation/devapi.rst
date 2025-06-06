@@ -1,5 +1,5 @@
-.. vim: set fileencoding=utf-8:
-.. -*- coding: utf-8 -*-
+.. vim: set filetype=rst fileencoding=utf-8:
+.. -*- mode: rst ; coding: utf-8 -*-
 .. +--------------------------------------------------------------------------+
    |                                                                          |
    | Licensed under the Apache License, Version 2.0 (the "License");          |
@@ -17,9 +17,27 @@
    +--------------------------------------------------------------------------+
 
 
+:tocdepth: 3
+
+
 *******************************************************************************
-Release Notes
+Internal Development Interface
 *******************************************************************************
 
 
-.. include:: ../../changelog.rst
+Package ``absence.__``
+===============================================================================
+
+.. automodule:: absence.__
+
+
+Module ``absence.__.imports``
+-------------------------------------------------------------------------------
+
+.. automodule:: absence.__.imports
+
+
+Module ``absence.__.nomina``
+-------------------------------------------------------------------------------
+
+.. automodule:: absence.__.nomina

@@ -18,25 +18,15 @@
 #============================================================================#
 
 
-''' Sentinel for absent values.
-
-    Sentinel is distinct from ``None``. Package als has support for creating
-    package-specific absence sentinels. Particularly useful in contexts where
-    ``None`` is a valid value but you need to detect the absence of a value.
-'''
+''' Common names and type aliases. '''
 
 
-from . import __
-# --- BEGIN: Injected by Copier ---
-from . import exceptions
-# --- END: Injected by Copier ---
-
-from .installers import *
-from .objects import *
+from . import imports as __
 
 
-__version__ = '1.1rc0'
+ComparisonResult: __.typx.TypeAlias = bool | __.types.NotImplementedType
+NominativeArguments: __.typx.TypeAlias = __.cabc.Mapping[ str, __.typx.Any ]
+PositionalArguments: __.typx.TypeAlias = __.cabc.Sequence[ __.typx.Any ]
 
 
-__.ccstd.dynadoc.assign_module_docstring( __name__ )
-__.ccstd.reclassify_modules( __name__, recursive = True )
+package_name = __name__.split( '.', maxsplit = 1 )[ 0 ]

@@ -17,7 +17,7 @@
    +--------------------------------------------------------------------------+
 
 *******************************************************************************
-                                  absence
+                                    absence                                    
 *******************************************************************************
 
 .. image:: https://img.shields.io/pypi/v/absence
@@ -177,14 +177,6 @@ more details on alternatives.
    :alt: pre-commit
    :target: https://github.com/pre-commit/pre-commit
 
-.. image:: https://img.shields.io/badge/security-bandit-yellow.svg
-   :alt: Bandit
-   :target: https://github.com/PyCQA/bandit
-
-.. image:: https://img.shields.io/badge/linting-pylint-yellowgreen
-   :alt: Pylint
-   :target: https://github.com/pylint-dev/pylint
-
 .. image:: https://microsoft.github.io/pyright/img/pyright_badge.svg
    :alt: Pyright
    :target: https://microsoft.github.io/pyright
@@ -193,8 +185,6 @@ more details on alternatives.
    :alt: Ruff
    :target: https://github.com/astral-sh/ruff
 
-
-
 .. image:: https://img.shields.io/pypi/implementation/absence
    :alt: PyPI - Implementation
    :target: https://pypi.org/project/absence/
@@ -202,3 +192,30 @@ more details on alternatives.
 .. image:: https://img.shields.io/pypi/wheel/absence
    :alt: PyPI - Wheel
    :target: https://pypi.org/project/absence/
+
+
+Other Projects by This Author 🌟
+===============================================================================
+
+
+* `python-accretive <https://github.com/emcd/python-accretive>`_ (`accretive <https://pypi.org/project/accretive/>`_ on PyPI) 
+
+  🌌 A Python library package which provides **accretive data structures** - collections which can grow but never shrink.
+* `python-classcore <https://github.com/emcd/python-classcore>`_ (`classcore <https://pypi.org/project/classcore/>`_ on PyPI) 
+
+  🏭 A Python library package which provides **foundational class factories and decorators** for providing classes with attributes immutability and concealment and other custom behaviors.
+* `python-dynadoc <https://github.com/emcd/python-dynadoc>`_ (`dynadoc <https://pypi.org/project/dynadoc/>`_ on PyPI) 
+
+  📝 A Python library package which bridges the gap between **rich annotations** and **automatic documentation generation** with configurable renderers and support for reusable fragments.
+* `python-falsifier <https://github.com/emcd/python-falsifier>`_ (`falsifier <https://pypi.org/project/falsifier/>`_ on PyPI) 
+
+  🎭 A very simple Python library package which provides a **base class for falsey objects** - objects that evaluate to ``False`` in boolean contexts.
+* `python-frigid <https://github.com/emcd/python-frigid>`_ (`frigid <https://pypi.org/project/frigid/>`_ on PyPI) 
+
+  🔒 A Python library package which provides **immutable data structures** - collections which cannot be modified after creation.
+* `python-icecream-truck <https://github.com/emcd/python-icecream-truck>`_ (`icecream-truck <https://pypi.org/project/icecream-truck/>`_ on PyPI) 
+
+  🍦 **Flavorful Debugging** - A Python library which enhances the powerful and well-known ``icecream`` package with flavored traces, configuration hierarchies, customized outputs, ready-made recipes, and more.
+* `python-mimeogram <https://github.com/emcd/python-mimeogram>`_ (`mimeogram <https://pypi.org/project/mimeogram/>`_ on PyPI) 
+
+  📨 A command-line tool for **exchanging collections of files with Large Language Models** - bundle multiple files into a single clipboard-ready document while preserving directory structure and metadata... good for code reviews, project sharing, and LLM interactions.

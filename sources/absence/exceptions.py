@@ -18,17 +18,13 @@
 #============================================================================#
 
 
-''' Family of exceptions for package API.
-
-    * ``Omniexception``: Base for all package exceptions
-    * ``Omnierror``: Base for all package errors
-'''
+''' Family of exceptions for package API. '''
 
 
 from . import __
 
 
-class Omniexception( __.ImmutableObject, BaseException ):
+class Omniexception( BaseException, __.ccstd.Object ):
     ''' Base for all exceptions raised by package API. '''
 
     _attribute_visibility_includes_: __.cabc.Collection[ str ] = (

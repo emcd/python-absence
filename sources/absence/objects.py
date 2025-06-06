@@ -35,11 +35,11 @@ class AbsenceFactory( _falsifier.Falsifier ):
         self,
         repr_function: __.typx.Annotated[
             __.typx.Optional[ __.cabc.Callable[ [ __.typx.Self ], str ] ],
-            __.typx.Doc( ''' Function for __repr__. ''' )
+            __.dynadoc.Doc( ''' Function for __repr__. ''' )
         ] = None,
         str_function: __.typx.Annotated[
             __.typx.Optional[ __.cabc.Callable[ [ __.typx.Self ], str ] ],
-            __.typx.Doc( ''' Function for __str__. ''' )
+            __.dynadoc.Doc( ''' Function for __str__. ''' )
         ] = None,
     ) -> None:
         self._repr_function = repr_function
@@ -68,7 +68,7 @@ class AbsentSingleton( AbsenceFactory ):
     def __new__( selfclass ) -> __.typx.Self:
         absent_ = globals( ).get( 'absent' )
         if isinstance( absent_, selfclass ): return absent_
-        return super( ).__new__( selfclass ) # type: ignore
+        return super( ).__new__( selfclass )
 
     def __repr__( self ) -> str:
         return 'absence.absent'
@@ -78,7 +78,7 @@ class AbsentSingleton( AbsenceFactory ):
 
 
 absent: __.typx.Annotated[
-    AbsentSingleton, __.typx.Doc( ''' Global absence sentinel. ''' )
+    AbsentSingleton, __.dynadoc.Doc( ''' Global absence sentinel. ''' )
 ] = AbsentSingleton( )
 
 
@@ -97,7 +97,7 @@ _V = __.typx.TypeVar( '_V' )
 Absential: __.typx.TypeAlias = _V | AbsentSingleton
 
 
-def _typecheck_me( arg: Absential[ int ] = absent ):
+def _typecheck_me( arg: Absential[ int ] = absent ): # pragma: no cover
     # Note: Not part of public interface.
     #       Exists to help identify type issues
     #       since test code is exempt from type checking at this time.

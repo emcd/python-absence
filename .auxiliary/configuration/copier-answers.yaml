@@ -1,19 +1,19 @@
 # Changes here will be overwritten by Copier
-_commit: v1.8.1
+_commit: v1.20.2
 _src_path: gh:emcd/python-project-common
 author_email: emcd@users.noreply.github.com
 author_name: Eric McDonald
 description: Sentinel for absent values.
 development_status: 5 - Production/Stable
 distribution_name: absence
+enable_cli: false
 enable_property_tests: false
 enable_publication: true
 enable_rust_extension: false
 gh_owner: emcd
-inject_docstring_utils: false
+include_data_resources: false
 inject_exceptions: true
 inject_foundations: true
-inject_immutables: true
 package_name: absence
 project_name: python-absence
 pypy_versions:
