@@ -29,12 +29,12 @@ from . import __
 def install(
     sentinel_name: __.typx.Annotated[
         str | None,
-        __.typx.Doc(
+        __.dynadoc.Doc(
             ''' Name to use for sentinel in builtins. ``None`` to skip. ''' )
     ] = 'Absent', # Follows builtins convention: Ellipsis, None, NotImplemented
     predicate_name: __.typx.Annotated[
         str | None,
-        __.typx.Doc(
+        __.dynadoc.Doc(
             ''' Name to use for predicate in builtins. ``None`` to skip. ''' )
     ] = 'isabsent', # Follows builtins convention: isinstance, issubclass
 ) -> None:

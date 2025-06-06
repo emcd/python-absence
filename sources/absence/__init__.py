@@ -18,7 +18,12 @@
 #============================================================================#
 
 
-''' Sentinel for absent values. '''
+''' Sentinel for absent values.
+
+    Sentinel is distinct from ``None``. Package als has support for creating
+    package-specific absence sentinels. Particularly useful in contexts where
+    ``None`` is a valid value but you need to detect the absence of a value.
+'''
 
 
 from . import __
@@ -33,4 +38,5 @@ from .objects import *
 __version__ = '1.1a0'
 
 
-__.reclassify_modules( __name__, recursive = True )
+__.ccstd.dynadoc.assign_module_docstring( __name__ )
+__.ccstd.reclassify_modules( __name__, recursive = True )

@@ -28,8 +28,16 @@ Internal Development Interface
 Package ``absence.__``
 ===============================================================================
 
+.. automodule:: absence.__
+
 
 Module ``absence.__.imports``
 -------------------------------------------------------------------------------
 
 .. automodule:: absence.__.imports
+
+
+Module ``absence.__.nomina``
+-------------------------------------------------------------------------------
+
+.. automodule:: absence.__.nomina

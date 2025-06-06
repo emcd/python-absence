@@ -18,25 +18,15 @@
 #============================================================================#
 
 
-''' Family of exceptions for package API. '''
+''' Common names and type aliases. '''
 
 
-from . import __
+from . import imports as __
 
 
-class Omniexception( BaseException, __.ccstd.Object ):
-    ''' Base for all exceptions raised by package API. '''
-
-    _attribute_visibility_includes_: __.cabc.Collection[ str ] = (
-        frozenset( ( '__cause__', '__context__', ) ) )
+ComparisonResult: __.typx.TypeAlias = bool | __.types.NotImplementedType
+NominativeArguments: __.typx.TypeAlias = __.cabc.Mapping[ str, __.typx.Any ]
+PositionalArguments: __.typx.TypeAlias = __.cabc.Sequence[ __.typx.Any ]
 
 
-class Omnierror( Omniexception, Exception ):
-    ''' Base for error exceptions raised by package API. '''
-
-
-class OperationValidityError( Omnierror, RuntimeError, TypeError ):
-    ''' Attempt to perform invalid operation. '''
-
-    def __init__( self, name: str ) -> None:
-        super( ).__init__( f"Operation {name!r} is not valid on this object." )
+package_name = __name__.split( '.', maxsplit = 1 )[ 0 ]
