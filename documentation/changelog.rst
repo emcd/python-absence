@@ -21,8 +21,15 @@
 Release Notes
 *******************************************************************************
 
-
 .. towncrier release notes start
+
+Absence 1.1 (2025-06-05)
+========================
+
+Enhancements
+------------
+
+- Apply Dynadoc to package to improve documentation.
 
 
 Absence 1.0.1 (2025-01-21)
