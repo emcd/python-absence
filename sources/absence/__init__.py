@@ -35,7 +35,7 @@ from .installers import *
 from .objects import *
 
 
-__version__ = '1.1a0'
+__version__ = '1.1rc0'
 
 
 __.ccstd.dynadoc.assign_module_docstring( __name__ )
