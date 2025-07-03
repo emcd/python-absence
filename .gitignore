@@ -1,4 +1,7 @@
 .env
+.claude
+.gemini
+.mcp.json
 .*.swp
 AGENTS.md
 CLAUDE.md

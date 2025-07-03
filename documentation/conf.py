@@ -10,7 +10,6 @@
         https://jareddillard.com/blog/common-ways-to-customize-sphinx-themes.html
 '''
 
-# ruff: noqa: E402,F401
 
 
 def _calculate_copyright_notice( ):
