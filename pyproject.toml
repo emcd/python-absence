@@ -57,6 +57,7 @@ year-of-origin = 2024
 gha-runners = [
   '/home/runner/work/python-absence/python-absence/',
   '/Users/runner/work/python-absence/python-absence/',
+  'C:\a\python-absence\python-absence\',
   'D:\a\python-absence\python-absence\',
 ]
 [tool.coverage.run]
@@ -98,9 +99,7 @@ description = ''' Development environment. '''
 dependencies = [
   'Jinja2',
   'coverage[toml]',
-  'emcd-projects',
   'furo',
-  'icecream',
   'packaging',
   'pre-commit',
   'pyright',

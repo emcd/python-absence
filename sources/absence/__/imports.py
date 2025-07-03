@@ -27,7 +27,7 @@ import collections.abc as       cabc
 import types
 
 import classcore.standard as    ccstd
-import                          dynadoc
+import dynadoc as               ddoc
 import typing_extensions as     typx
 # --- BEGIN: Injected by Copier ---
 # --- END: Injected by Copier ---

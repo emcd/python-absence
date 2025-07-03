@@ -35,11 +35,11 @@ class AbsenceFactory( _falsifier.Falsifier ):
         self,
         repr_function: __.typx.Annotated[
             __.typx.Optional[ __.cabc.Callable[ [ __.typx.Self ], str ] ],
-            __.dynadoc.Doc( ''' Function for __repr__. ''' )
+            __.ddoc.Doc( ''' Function for __repr__. ''' )
         ] = None,
         str_function: __.typx.Annotated[
             __.typx.Optional[ __.cabc.Callable[ [ __.typx.Self ], str ] ],
-            __.dynadoc.Doc( ''' Function for __str__. ''' )
+            __.ddoc.Doc( ''' Function for __str__. ''' )
         ] = None,
     ) -> None:
         self._repr_function = repr_function
@@ -78,7 +78,7 @@ class AbsentSingleton( AbsenceFactory ):
 
 
 absent: __.typx.Annotated[
-    AbsentSingleton, __.dynadoc.Doc( ''' Global absence sentinel. ''' )
+    AbsentSingleton, __.ddoc.Doc( ''' Global absence sentinel. ''' )
 ] = AbsentSingleton( )
 
 
