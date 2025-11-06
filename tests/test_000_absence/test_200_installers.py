@@ -25,7 +25,7 @@ import builtins
 
 import pytest
 
-from . import PACKAGE_NAME, cache_import_module
+from .__ import PACKAGE_NAME, cache_import_module
 
 
 @pytest.fixture

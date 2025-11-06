@@ -102,6 +102,8 @@ linkcheck_ignore = [
     r'https://pypi.org/project/absence/',
     # Github aggressively rate-limits access to certain blobs.
     r'https://github\.com/.*/.*/blob/.*',
+    # Avoid timeouts for slow sites.
+    r'http://www\.catb\.org/~esr/faqs/smart-questions\.html',
 ]
 
 # -- Options for HTML output -------------------------------------------------
@@ -133,10 +135,18 @@ autodoc_use_type_comments = False
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#configuration
 
 intersphinx_mapping = {
+    'classcore': (
+        'https://emcd.github.io/python-classcore/stable/sphinx-html', None),
+    'dynadoc': (
+        'https://emcd.github.io/python-dynadoc/stable/sphinx-html', None),
+    'falsifier': (
+        'https://emcd.github.io/python-falsifier/stable/sphinx-html', None),
     'python': (
         'https://docs.python.org/3', None),
     'typing-extensions': (
         'https://typing-extensions.readthedocs.io/en/latest', None),
+  # --- BEGIN: Injected by Copier ---
+  # --- END: Injected by Copier ---
 }
 
 # -- Options for todo extension ----------------------------------------------
