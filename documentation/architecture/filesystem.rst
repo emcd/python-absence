@@ -73,13 +73,174 @@ in the common architecture guide.
 Component Integration
 ===============================================================================
 
+Module Import Flow
+-------------------------------------------------------------------------------
+
+The package uses a layered import structure to maintain clean dependencies:
+
+.. code-block::
+
+    Package Initialization Flow:
+    1. __/__init__.py imports from __/imports.py and __/nomina.py
+    2. exceptions.py imports from __/ (gets common imports)
+    3. objects.py imports from __/ and exceptions.py
+    4. installers.py imports from __/ and objects.py
+    5. __init__.py imports from all modules and creates public API
+
+Dependency Graph
+-------------------------------------------------------------------------------
+
+The flat module structure maintains clear, acyclic dependencies:
+
+.. code-block::
+
+    __/imports.py  ──┐
+                     ├──> __/__init__.py ──┐
+    __/nomina.py ────┘                     │
+                                           ├──> exceptions.py ──┐
+                                           │                    │
+    falsifier ─────────────────────────────┼────────────────────┼──> objects.py ──┐
+                                           │                    │                  │
+                                           │                    │                  ├──> installers.py
+                                           │                    │                  │
+                                           └────────────────────┴──────────────────┴──> __init__.py
+                                                                                         (public API)
+
+Import Pattern Benefits
+-------------------------------------------------------------------------------
+
+**Centralized External Dependencies**
+  All external library imports (``classcore``, ``dynadoc``, ``typing_extensions``)
+  are centralized in ``__/imports.py``, making dependency management explicit
+  and version upgrades easier.
+
+**No Circular Dependencies**
+  The strict layering (``__/`` → ``exceptions`` → ``objects`` → ``installers``
+  → ``__init__``) prevents circular import issues and makes the dependency
+  graph easy to understand.
+
+**Consistent Import Interface**
+  All modules use ``from . import __`` regardless of their position in the
+  package, providing a consistent and predictable pattern.
+
+Testing Integration
+-------------------------------------------------------------------------------
+
+The test suite mirrors the source structure:
+
+.. code-block::
+
+    tests/
+    ├── test_000_imports.py          # Import validation and structure tests
+    ├── test_100_exceptions.py       # Exception hierarchy tests
+    ├── test_200_objects.py          # Sentinel factory and singleton tests
+    └── test_300_installers.py       # Builtins integration tests
+
+Each test module corresponds to a source module and uses numbered functions
+(e.g., ``test_201_absent_singleton_identity``) for systematic coverage tracking.
+
 Architecture Evolution
 ===============================================================================
 
-This filesystem organization provides a foundation that architect agents can
-evolve as the project grows. For questions about organizational principles,
-subpackage patterns, or testing strategies, refer to the comprehensive common
-documentation:
+Current Architecture Constraints
+-------------------------------------------------------------------------------
+
+The package is intentionally kept simple with a flat module structure because:
+
+**Single Responsibility**
+  The package has one focused purpose: providing absence sentinels. This does
+  not require subpackage organization.
+
+**Minimal Dependencies**
+  Only four modules provide the complete feature set, making subpackages
+  unnecessary overhead.
+
+**API Stability**
+  A flat structure makes API stability easier to maintain and reduces the
+  chance of breaking changes from restructuring.
+
+Future Growth Patterns
+-------------------------------------------------------------------------------
+
+If the package grows beyond its current scope, the following patterns would
+apply:
+
+**Subpackage Creation Criteria**
+  Create a subpackage only when:
+
+  - Five or more related modules share a common theme
+  - A feature requires internal implementation modules not part of public API
+  - Integration with external systems needs isolation (e.g., framework adapters)
+
+**Example: Framework Integrations Subpackage**
+  If framework-specific integrations are added:
+
+  .. code-block::
+
+      sources/absence/
+      ├── integrations/           # Subpackage for framework adapters
+      │   ├── __/                 # Inherits from parent __/
+      │   ├── __init__.py
+      │   ├── django.py           # Django model field integration
+      │   ├── pydantic.py         # Pydantic validator integration
+      │   └── sqlalchemy.py       # SQLAlchemy type integration
+      ├── __/
+      ├── objects.py
+      └── ...
+
+  Each integration would follow the ``__`` import pattern and remain optional.
+
+**Example: Performance-Critical Subpackage**
+  If performance-critical implementations are needed:
+
+  .. code-block::
+
+      sources/absence/
+      ├── _speedups/              # Optional compiled extensions
+      │   ├── __init__.py
+      │   └── predicates.pyi      # Type stubs for Rust/C implementations
+      ├── __/
+      └── ...
+
+  With fallback to pure Python implementations when extensions unavailable.
+
+Evolutionary Principles
+-------------------------------------------------------------------------------
+
+**Maintain Backward Compatibility**
+  Public API at ``absence.*`` namespace must remain stable. Internal
+  reorganization should not affect user imports.
+
+**Resist Premature Optimization**
+  Keep the flat structure until concrete needs justify added complexity.
+  Each additional level of organization has cognitive cost.
+
+**Document Decisions**
+  Any structural changes should be documented via ADRs to preserve the
+  rationale for future maintainers.
+
+Migration Guidance
+-------------------------------------------------------------------------------
+
+If subpackages are added, maintain public API compatibility:
+
+.. code-block:: python
+
+    # sources/absence/__init__.py - maintain flat public API
+    from .core.objects import absent, is_absent, AbsenceFactory
+    from .core.installers import install
+
+    # Users continue to import from top level
+    # from absence import absent
+
+This ensures existing user code continues to work while allowing internal
+reorganization for maintainability.
+
+Reference Documentation
+-------------------------------------------------------------------------------
+
+For questions about organizational principles, subpackage patterns, or testing
+strategies, refer to the comprehensive common documentation:
 
 * `Architecture Patterns <https://raw.githubusercontent.com/emcd/python-project-common/refs/tags/docs-1/documentation/common/architecture.rst>`_
 * `Development Practices <https://raw.githubusercontent.com/emcd/python-project-common/refs/tags/docs-1/documentation/common/practices.rst>`_
