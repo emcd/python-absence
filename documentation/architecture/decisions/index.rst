@@ -25,7 +25,7 @@ Architectural Decision Records
    :maxdepth: 2
 
    001-falsey-behavior-via-inheritance
-   003-singleton-via-new-override
+   002-singleton-via-new-override
 
 For ADR format and guidance, see the `architecture documentation guide
 <https://emcd.github.io/python-project-common/stable/sphinx-html/common/architecture.html>`_.
