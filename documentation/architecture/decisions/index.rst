@@ -24,8 +24,9 @@ Architectural Decision Records
 .. toctree::
    :maxdepth: 2
 
-
-.. todo:: Add architectural decision records to toctree.
+   001-falsey-behavior-via-inheritance
+   002-non-picklable-sentinels
+   003-singleton-via-new-override
 
 For ADR format and guidance, see the `architecture documentation guide
 <https://emcd.github.io/python-project-common/stable/sphinx-html/common/architecture.html>`_.
