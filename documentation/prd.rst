@@ -149,8 +149,8 @@ Global Absence Sentinel (Critical)
 **REQ-F001: Provide ``absent`` singleton**
   Priority: Critical
 
-  As a Python developer, I want a globally unique ``absent`` sentinel so that I
-  can use identity checks to detect absent values reliably.
+  The package must provide a globally unique ``absent`` sentinel to enable
+  reliable identity-based detection of absent values.
 
   Acceptance Criteria:
 
@@ -164,8 +164,8 @@ Global Absence Sentinel (Critical)
 **REQ-F002: Prevent sentinel pickling**
   Priority: Critical
 
-  As a library developer, I want absence sentinels to be non-picklable so that
-  singleton semantics are guaranteed and bugs from unpickling are prevented.
+  Absence sentinels must be non-picklable to guarantee singleton semantics and
+  prevent bugs from unpickling.
 
   Acceptance Criteria:
 
@@ -179,8 +179,8 @@ Type Safety (Critical)
 **REQ-F003: Provide type predicate functions**
   Priority: Critical
 
-  As a Python developer, I want type-safe predicates for checking absence so
-  that type checkers can narrow types correctly.
+  The package must provide type-safe predicates for checking absence that enable
+  type checkers to narrow types correctly.
 
   Acceptance Criteria:
 
@@ -192,8 +192,8 @@ Type Safety (Critical)
 **REQ-F004: Provide ``Absential[T]`` type alias**
   Priority: Critical
 
-  As an API designer, I want a type alias for "value or absent" so that I can
-  express optional-but-not-None parameters in type signatures.
+  The package must provide a type alias for "value or absent" to enable
+  expressing optional-but-not-None parameters in type signatures.
 
   Acceptance Criteria:
 
@@ -208,8 +208,8 @@ Custom Sentinels (High)
 **REQ-F005: Provide ``AbsenceFactory`` for custom sentinels**
   Priority: High
 
-  As a library developer, I want to create package-specific absence sentinels
-  so that I can avoid conflicts with the global sentinel in specialized contexts.
+  The package must provide an ``AbsenceFactory`` to enable creation of
+  package-specific absence sentinels for specialized contexts.
 
   Acceptance Criteria:
 
@@ -226,8 +226,8 @@ Builtins Integration (Medium)
 **REQ-F006: Provide ``install()`` function for builtins**
   Priority: Medium
 
-  As an application developer, I want to optionally install ``absent`` into
-  builtins so that I can use it without imports in frequently-used contexts.
+  The package must provide an ``install()`` function to optionally add ``absent``
+  to builtins for use without imports in frequently-used contexts.
 
   Acceptance Criteria:
 

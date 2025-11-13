@@ -57,15 +57,17 @@ The main Python package follows the standard ``sources/`` directory pattern:
 .. code-block::
 
     sources/
-    ├── absence/          # Main Python package
-    │   ├── __/                      # Centralized import hub
-    │   │   ├── __init__.py          # Re-exports core utilities
-    │   │   ├── imports.py           # External library imports
-    │   │   └── nomina.py            # python-absence-specific naming constants
-    │   ├── __init__.py              # Package entry point
-    │   ├── py.typed                 # Type checking marker
-    │   └── [modules].py             # Feature-specific modules
-    
+    └── absence/                     # Main Python package
+        ├── __/                      # Centralized import hub
+        │   ├── __init__.py          # Re-exports core utilities
+        │   ├── imports.py           # External library imports
+        │   └── nomina.py            # Naming constants and type aliases
+        ├── __init__.py              # Package entry point and public API
+        ├── exceptions.py            # Exception hierarchy
+        ├── installers.py            # Builtins integration
+        ├── objects.py               # Sentinel factory and global singleton
+        └── py.typed                 # Type checking marker
+
 
 All package modules use the standard ``__`` import pattern as documented
 in the common architecture guide.
