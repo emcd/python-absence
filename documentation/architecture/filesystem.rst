@@ -153,56 +153,12 @@ The package is intentionally kept simple with a flat module structure because:
 
 **Minimal Dependencies**
   Only four modules provide the complete feature set, making subpackages
-  unnecessary overhead.
+  unnecessary overhead. The package maintains a small dependency footprint
+  to remain lightweight and focused.
 
 **API Stability**
   A flat structure makes API stability easier to maintain and reduces the
   chance of breaking changes from restructuring.
-
-Future Growth Patterns
--------------------------------------------------------------------------------
-
-If the package grows beyond its current scope, the following patterns would
-apply:
-
-**Subpackage Creation Criteria**
-  Create a subpackage only when:
-
-  - Five or more related modules share a common theme
-  - A feature requires internal implementation modules not part of public API
-  - Integration with external systems needs isolation (e.g., framework adapters)
-
-**Example: Framework Integrations Subpackage**
-  If framework-specific integrations are added:
-
-  .. code-block::
-
-      sources/absence/
-      ├── integrations/           # Subpackage for framework adapters
-      │   ├── __/                 # Inherits from parent __/
-      │   ├── __init__.py
-      │   ├── django.py           # Django model field integration
-      │   ├── pydantic.py         # Pydantic validator integration
-      │   └── sqlalchemy.py       # SQLAlchemy type integration
-      ├── __/
-      ├── objects.py
-      └── ...
-
-  Each integration would follow the ``__`` import pattern and remain optional.
-
-**Example: Performance-Critical Subpackage**
-  If performance-critical implementations are needed:
-
-  .. code-block::
-
-      sources/absence/
-      ├── _speedups/              # Optional compiled extensions
-      │   ├── __init__.py
-      │   └── predicates.pyi      # Type stubs for Rust/C implementations
-      ├── __/
-      └── ...
-
-  With fallback to pure Python implementations when extensions unavailable.
 
 Evolutionary Principles
 -------------------------------------------------------------------------------
@@ -215,26 +171,14 @@ Evolutionary Principles
   Keep the flat structure until concrete needs justify added complexity.
   Each additional level of organization has cognitive cost.
 
+**Preserve Small Footprint**
+  The package intentionally avoids integrations with large frameworks or
+  libraries to maintain minimal dependencies. Users can build their own
+  integrations as needed.
+
 **Document Decisions**
   Any structural changes should be documented via ADRs to preserve the
   rationale for future maintainers.
-
-Migration Guidance
--------------------------------------------------------------------------------
-
-If subpackages are added, maintain public API compatibility:
-
-.. code-block:: python
-
-    # sources/absence/__init__.py - maintain flat public API
-    from .core.objects import absent, is_absent, AbsenceFactory
-    from .core.installers import install
-
-    # Users continue to import from top level
-    # from absence import absent
-
-This ensures existing user code continues to work while allowing internal
-reorganization for maintainability.
 
 Reference Documentation
 -------------------------------------------------------------------------------

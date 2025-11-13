@@ -56,7 +56,7 @@ Problem Statement
 * ``object()`` sentinels: Truthy (confusing in conditionals), not standardized
 * ``dataclasses.MISSING``: Truthy, dataclasses-specific, limited scope
 * ``typing.NoDefault``: Truthy, typing-specific, Python 3.13+
-* PEP 661 sentinel: Not widely adopted, complex API, truthy by default
+* PEP 661 sentinel: Still in draft with deferred status, not adopted into Python
 * Custom classes: Requires boilerplate in every project
 
 Goals and Objectives
