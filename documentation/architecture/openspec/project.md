@@ -1,7 +1,7 @@
 # Project Context
 
 ## Purpose
-The `absence` project provides a falsey sentinel singleton and factory for representing absent values in contexts where `None` or `False` might be valid values. It offers a type-safe, immutable alternative to `None` for distinguishing between "empty" and "missing" states.
+This project provides a falsey sentinel singleton and factory for representing absent values in contexts where `None` or `False` might be valid values. It offers a type-safe, immutable alternative to `None` for distinguishing between "empty" and "missing" states.
 
 ## Tech Stack
 - **Language**: Python 3.10+
@@ -17,7 +17,7 @@ The `absence` project provides a falsey sentinel singleton and factory for repre
 ### Code Style
 - **Formatting**: 4-space indentation, 79-character line length (enforced by Ruff/isort).
 - **Import Style**: Centralized external imports in `__/imports.py` and package re-exports in `__/`. Modules import from `.` or `.__` (e.g., `from . import __`).
-- **Linter Rules**: Strict adherence to Ruff rulesets (A, B, C, E, F, PL, etc.) as defined in `pyproject.toml`.
+- **Linter Rules**: Strict adherence to Ruff rulesets as defined in `pyproject.toml`.
 - **References**:
   - `documentation/architecture/filesystem.rst` (Source Code Organization, Component Integration)
 
@@ -39,8 +39,6 @@ The `absence` project provides a falsey sentinel singleton and factory for repre
   - `documentation/architecture/filesystem.rst` (Testing Integration)
 
 ### Git Workflow
-- **Branching**: Standard feature branching.
-- **Commits**: Conventional commits suggested (Towncrier is used for changelog generation).
 - **Updates**: Project structure updated via Copier.
 
 ## Domain Context
@@ -49,7 +47,7 @@ The `absence` project provides a falsey sentinel singleton and factory for repre
 
 ## Important Constraints
 - **Minimal Dependencies**: Keep dependency footprint small (`classcore`, `dynadoc`, `falsifier`, `typing-extensions`).
-- **Pickling**: The `absent` sentinel and factory instances explicitly prevent pickling to ensure process-wide uniqueness.
+- **Pickling**: The `absent` sentinel and factory instances do not support pickling.
 - **Backward Compatibility**: Public API at `absence.*` must remain stable.
 
 ## External Dependencies
