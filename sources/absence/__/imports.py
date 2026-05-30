@@ -23,8 +23,8 @@
 # ruff: noqa: F401
 
 
-import collections.abc as       cabc
-import types
+import collections.abc as   cabc
+import                      types
 
 import classcore.standard as    ccstd
 import dynadoc as               ddoc
