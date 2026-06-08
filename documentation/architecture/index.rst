@@ -24,11 +24,7 @@ Architecture
 .. toctree::
    :maxdepth: 2
 
-   summary
-   filesystem
-   decisions/index
    designs/index
-   testplans/index
 
 
 .. todo:: Populate architecture documentation sections.
