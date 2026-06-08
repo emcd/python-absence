@@ -25,6 +25,3 @@ Architecture
    :maxdepth: 2
 
    designs/index
-
-
-.. todo:: Populate architecture documentation sections.
