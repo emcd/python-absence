@@ -117,9 +117,15 @@ linkcheck_ignore = [
     r'http://www\.catb\.org/~esr/faqs/smart-questions\.html',
     # GitHub intermittently returns 504 for these repositories.
     r'https://github\.com/astral-sh/ruff',
+    r'https://github\.com/emcd/python-classcore',
     r'https://github\.com/emcd/python-detextive',
     r'https://github\.com/emcd/python-dynadoc',
     r'https://github\.com/emcd/python-falsifier',
+    r'https://github\.com/emcd/python-frigid',
+    r'https://github\.com/emcd/python-icecream-truck',
+    r'https://github\.com/emcd/python-librovore',
+    r'https://github\.com/emcd/python-mimeogram',
+    r'https://github\.com/pre-commit/pre-commit',
     r'https://github\.com/pypa/hatch',
 ]
 
