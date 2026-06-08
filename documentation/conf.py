@@ -111,22 +111,10 @@ linkcheck_ignore = [
     r'https://github\.com/emcd/python-absence/.*',
     # Package does not exist during initial development.
     r'https://pypi.org/project/absence/',
-    # Github aggressively rate-limits access to certain blobs.
-    r'https://github\.com/.*/.*/blob/.*',
+    # GitHub intermittently returns 504 and rate-limits aggressively.
+    r'https://github\.com/.*',
     # Avoid timeouts for slow sites.
     r'http://www\.catb\.org/~esr/faqs/smart-questions\.html',
-    # GitHub intermittently returns 504 for these repositories.
-    r'https://github\.com/astral-sh/ruff',
-    r'https://github\.com/emcd/python-classcore',
-    r'https://github\.com/emcd/python-detextive',
-    r'https://github\.com/emcd/python-dynadoc',
-    r'https://github\.com/emcd/python-falsifier',
-    r'https://github\.com/emcd/python-frigid',
-    r'https://github\.com/emcd/python-icecream-truck',
-    r'https://github\.com/emcd/python-librovore',
-    r'https://github\.com/emcd/python-mimeogram',
-    r'https://github\.com/pre-commit/pre-commit',
-    r'https://github\.com/pypa/hatch',
 ]
 
 # -- Options for HTML output -------------------------------------------------
