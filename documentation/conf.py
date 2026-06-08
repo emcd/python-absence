@@ -115,6 +115,10 @@ linkcheck_ignore = [
     r'https://github\.com/.*/.*/blob/.*',
     # Avoid timeouts for slow sites.
     r'http://www\.catb\.org/~esr/faqs/smart-questions\.html',
+    # GitHub intermittently returns 504 for these repositories.
+    r'https://github\.com/astral-sh/ruff',
+    r'https://github\.com/emcd/python-detextive',
+    r'https://github\.com/emcd/python-dynadoc',
 ]
 
 # -- Options for HTML output -------------------------------------------------
