@@ -119,6 +119,8 @@ linkcheck_ignore = [
     r'https://github\.com/astral-sh/ruff',
     r'https://github\.com/emcd/python-detextive',
     r'https://github\.com/emcd/python-dynadoc',
+    r'https://github\.com/emcd/python-falsifier',
+    r'https://github\.com/pypa/hatch',
 ]
 
 # -- Options for HTML output -------------------------------------------------
