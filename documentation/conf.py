@@ -111,10 +111,12 @@ linkcheck_ignore = [
     r'https://github\.com/emcd/python-absence/.*',
     # Package does not exist during initial development.
     r'https://pypi.org/project/absence/',
-    # GitHub intermittently returns 504 and rate-limits aggressively.
-    r'https://github\.com/.*',
+    # Github aggressively rate-limits access to certain blobs.
+    r'https://github\.com/.*/.*/blob/.*',
     # Avoid timeouts for slow sites.
     r'http://www\.catb\.org/~esr/faqs/smart-questions\.html',
+    # GitHub intermittently returns 504 and rate-limits aggressively.
+    r'https://github\.com/.*',
 ]
 
 # -- Options for HTML output -------------------------------------------------
