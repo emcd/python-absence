@@ -1,6 +1,4 @@
-# AbsenceCell Specification
-
-## Requirements
+## ADDED Requirements
 
 ### Requirement: AbsenceCell Container
 

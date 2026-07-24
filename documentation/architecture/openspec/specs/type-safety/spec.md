@@ -1,7 +1,9 @@
 # Type Safety
 
-The package SHALL provide type-safe predicates and type aliases for absence
-detection with static type checker support.
+## Purpose
+
+Provide type-safe predicates and type aliases for absence detection with
+static type checker support, enabling correct type narrowing.
 
 ## Requirements
 

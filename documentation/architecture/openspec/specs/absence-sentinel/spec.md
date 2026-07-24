@@ -1,7 +1,9 @@
 # Absence Sentinel
 
-The package SHALL provide a globally unique `absent` sentinel to enable
-reliable identity-based detection of absent values.
+## Purpose
+
+Provide a globally unique `absent` sentinel to enable reliable identity-based
+detection of absent values in contexts where `None` or `False` may be valid.
 
 ## Requirements
 

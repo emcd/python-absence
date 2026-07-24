@@ -1,7 +1,10 @@
 # Builtins Integration
 
-The package SHALL provide an `install()` function to optionally add the
-absence sentinel and predicate to Python's builtins.
+## Purpose
+
+Provide an `install()` function to optionally add the absence sentinel and
+predicate to Python's builtins for use without imports in frequently-used
+contexts.
 
 ## Requirements
 

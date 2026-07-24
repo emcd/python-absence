@@ -1,7 +1,9 @@
 # Custom Sentinels
 
-The package SHALL provide an `AbsenceFactory` for creating package-specific
-absence sentinels.
+## Purpose
+
+Provide an `AbsenceFactory` for creating package-specific absence sentinels
+in specialized contexts where the global `absent` sentinel is insufficient.
 
 ## Requirements
 
