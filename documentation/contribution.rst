@@ -54,14 +54,10 @@ Architecture
   These should be reviewed and updated through the Openspec workflow when making
   changes that affect product functionality or user experience.
 
-* The :doc:`design documents
-  <architecture/designs/index>` provide a good starting point to understand
-  the structure and operational patterns of the project. Major changes to the
+* Review the architecture documentation in ``sources/absence/README.md`` and the
+  OpenSpec specifications in ``architecture/openspec/specs/`` to understand the
+  structure and operational patterns of the project. Major changes to the
   architecture should be reflected in these documents.
-
-* Document technical design specifications for Python interfaces, module
-  organization, and implementation patterns in :doc:`design documents
-  <architecture/designs/index>` to guide implementation efforts.
 
 Guidance and Standards
 -------------------------------------------------------------------------------
@@ -125,7 +121,6 @@ Resources
 
    Code of Conduct <https://emcd.github.io/python-project-common/stable/sphinx-html/common/conduct.html>
    specifications/index
-   architecture/index
    devapi
    Environment Guide <https://emcd.github.io/python-project-common/stable/sphinx-html/common/environment.html>
    Practices Guide <https://emcd.github.io/python-project-common/stable/sphinx-html/common/practices.html>
