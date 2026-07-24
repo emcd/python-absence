@@ -46,18 +46,20 @@ Ways to Contribute
 Development
 ===============================================================================
 
-Architecture
+Requirements and Design
 -------------------------------------------------------------------------------
 
-* The :doc:`capability specifications <specifications/index>` provide a good
-  starting point to understand the requirements and motivations for the project.
-  These should be reviewed and updated through the Openspec workflow when making
-  changes that affect product functionality or user experience.
+* Review accepted capability requirements in ``openspec/specs/``. Manage new
+  capabilities, breaking or cross-cutting changes, architectural shifts, and
+  substantial performance or security work through OpenSpec changes in
+  ``openspec/changes/``. Follow the project's OpenSpec workflow instructions
+  and keep accepted specifications synchronized when changes are completed.
 
-* Review the architecture documentation in ``sources/absence/README.md`` and the
-  OpenSpec specifications in ``architecture/openspec/specs/`` to understand the
-  structure and operational patterns of the project. Major changes to the
-  architecture should be reflected in these documents.
+* Document stable subsystem architecture, design rationale, and local
+  constraints in the nearest source-near README, normally
+  ``sources/**/README.md``. Update the affected README when implementation
+  structure or operational patterns change rather than recreating centralized
+  architecture or specification mirrors under ``documentation/``.
 
 Guidance and Standards
 -------------------------------------------------------------------------------
@@ -95,7 +97,7 @@ Guidance and Standards
   <https://emcd.github.io/python-project-common/stable/sphinx-html/common/releases.html>`_
   as appropriate.
 
-* Although unncessary for non-maintainer contributions, additional background
+* Although unnecessary for non-maintainer contributions, additional background
   can be found in the `maintenance guide
   <https://emcd.github.io/python-project-common/stable/sphinx-html/common/maintenance.html>`_.
 
@@ -120,7 +122,6 @@ Resources
    :maxdepth: 2
 
    Code of Conduct <https://emcd.github.io/python-project-common/stable/sphinx-html/common/conduct.html>
-   specifications/index
    devapi
    Environment Guide <https://emcd.github.io/python-project-common/stable/sphinx-html/common/environment.html>
    Practices Guide <https://emcd.github.io/python-project-common/stable/sphinx-html/common/practices.html>
