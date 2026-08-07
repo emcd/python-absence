@@ -77,7 +77,7 @@ Examples 💡
 Use the ``absent`` sentinel to represent missing values:
 
 >>> from dataclasses import dataclass
->>> from absence import absent, is_absent, Absential
+>>> from absence import absent, is_present, Absential
 >>> @dataclass
 ... class User:
 ...     name: str | None
@@ -92,8 +92,8 @@ Use the ``absent`` sentinel to represent missing values:
 ...         Absent value means "don't change".
 ...         None value means "clear field".
 ...     '''
-...     if not is_absent( name ): user.name = name
-...     if not is_absent( email ): user.email = email
+...     if is_present( name ): user.name = name
+...     if is_present( email ): user.email = email
 ...     return user
 >>> user = User( name = 'Alice', email = 'alice@example.com' )
 >>> # Clear name but leave email unchanged

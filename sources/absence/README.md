@@ -26,6 +26,7 @@ structure:
 **Type Utilities**
   - `is_absence()`: Type guard checking if value is any AbsenceFactory instance
   - `is_absent()`: Type guard checking if value is the global `absent` singleton
+  - `is_present()`: Positive-form type guard, narrows `Absential[T]` to `T`
   - `Absential[T]`: Type alias equivalent to `T | AbsentSingleton`
 
 ### Builtins Integration (`installers.py`)
@@ -64,6 +65,7 @@ __init__.py
 │   ├── absent (global instance)
 │   ├── is_absence() (predicate)
 │   ├── is_absent() (predicate)
+│   ├── is_present() (predicate)
 │   └── Absential (type alias)
 ├── imports from installers.py
 │   └── install() (builtins integration)

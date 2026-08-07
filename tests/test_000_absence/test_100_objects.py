@@ -32,6 +32,7 @@ from absence.objects import (
     absent,
     is_absence,
     is_absent,
+    is_present,
 )
 
 
@@ -129,6 +130,19 @@ def test_301_absence_type_recognition( ):
     assert is_absence( AbsenceFactory( ) )
     assert not is_absence( None )
     assert not is_absence( False )
+
+
+def test_302_present_value_recognition( ):
+    ''' Non-absent values are recognized as present. '''
+    assert is_present( 42 )
+    assert is_present( None )
+    assert is_present( False )
+    assert is_present( AbsenceFactory( ) )
+
+
+def test_303_absent_sentinel_exclusion( ):
+    ''' Global sentinel is excluded from present values. '''
+    assert not is_present( absent )
 
 
 def test_900_docstring_sanity( ):

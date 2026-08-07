@@ -31,7 +31,7 @@ The ``absent`` sentinel can be used directly to represent missing values:
 
 .. doctest:: Absence
 
-    >>> from absence import absent, is_absent
+    >>> from absence import absent, is_absent, is_present
     >>> bool( absent )  # Always evaluates to False
     False
     >>> str( absent )   # Simple string form
@@ -42,6 +42,10 @@ The ``absent`` sentinel can be used directly to represent missing values:
     True
     >>> is_absent( None )
     False
+    >>> is_present( absent )  # Positive-form checking
+    False
+    >>> is_present( None )   # None is present, not absent
+    True
 
 
 Type Alias and Predicate Function
@@ -53,7 +57,7 @@ query for NULL" (``None``):
 
 .. doctest:: Absence
 
-    >>> from absence import absent, is_absent, Absential
+    >>> from absence import absent, is_present, Absential
     >>> def build_query(
     ...     name: Absential[ str | None ] = absent,
     ...     email: Absential[ str | None ] = absent,
@@ -66,12 +70,12 @@ query for NULL" (``None``):
     ...     '''
     ...     conditions = [ ]
     ...     params = [ ]
-    ...     if not is_absent( name ):
+    ...     if is_present( name ):
     ...         if name is None: conditions.append( 'name IS NULL' )
     ...         else:
     ...             conditions.append( 'name = ?' )
     ...             params.append( name )
-    ...     if not is_absent( email ):
+    ...     if is_present( email ):
     ...         if email is None: conditions.append( 'email IS NULL' )
     ...         else:
     ...             conditions.append( 'email = ?' )

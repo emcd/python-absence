@@ -97,9 +97,14 @@ _V = __.typx.TypeVar( '_V' )
 Absential: __.typx.TypeAlias = _V | AbsentSingleton
 
 
+def is_present( value: Absential[ _V ] ) -> __.typx.TypeIs[ _V ]:
+    ''' Checks if value is present (not the global absent sentinel). '''
+    return value is not absent
+
+
 def _typecheck_me( arg: Absential[ int ] = absent ): # pragma: no cover
     # Note: Not part of public interface.
     #       Exists to help identify type issues
     #       since test code is exempt from type checking at this time.
-    if is_absent( arg ): return 'absent'
-    return arg
+    if is_present( arg ): return arg
+    return 'absent'
