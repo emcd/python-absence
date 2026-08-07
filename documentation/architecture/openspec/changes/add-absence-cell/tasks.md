@@ -1,28 +1,28 @@
 ## 1. Core Implementation
-- [ ] 1.1 Create `sources/absence/cell.py` with `AbsenceCell` class
-- [ ] 1.2 Implement constructors: `__init__`, `of`, `empty`, `from_optional`
-- [ ] 1.3 Implement predicates: `is_absent`, `is_present`, `__bool__`
-- [ ] 1.4 Implement extraction: `extract`, `extract_or`, `extract_or_compute`
-- [ ] 1.5 Implement evaluation: `evaluate_or`, `evaluate_or_true`, `evaluate_or_false`
-- [ ] 1.6 Implement transformation: `transform`
-- [ ] 1.7 Implement chaining: `or_else`, `to_optional`
-- [ ] 1.8 Export `AbsenceCell` from `sources/absence/__init__.py`
+- [x] 1.1 Create `sources/absence/cell.py` with `AbsenceCell` class
+- [x] 1.2 Implement constructors: `__init__`, `from_optional`
+- [x] 1.3 Implement predicates: `is_absent`, `is_present`, `__bool__`
+- [x] 1.4 Implement extraction: `extract`, `extract_or`, `extract_or_compute`
+- [x] 1.5 Implement evaluation: `evaluate_or`, `evaluate_or_true`, `evaluate_or_false`
+- [x] 1.6 Implement transformation: `transform`
+- [x] 1.7 Implement chaining: `or_else`, `to_optional`
+- [x] 1.8 Export `AbsenceCell` from `sources/absence/__init__.py`
 
 ## 2. Type Safety
-- [ ] 2.1 Verify `TypeIs[T]` narrowing works with `is_present()` in cell methods
-- [ ] 2.2 Minimize `type: ignore` comments (target: only `from_optional` with `none_is_absent=False`)
+- [x] 2.1 Verify `TypeIs[T]` narrowing works with `is_absent()` in cell methods
+- [x] 2.2 Minimize `type: ignore` comments (target: only `from_optional`)
 
 ## 3. Testing
-- [ ] 3.1 Test all factory methods (`of`, `empty`, `from_optional`)
-- [ ] 3.2 Test predicates with empty/occupied cells
-- [ ] 3.3 Test extraction methods (including exceptions)
-- [ ] 3.4 Test all `evaluate_or_*` variants
-- [ ] 3.5 Test `transform`
-- [ ] 3.6 Test `or_else` chaining
-- [ ] 3.7 Test `from_optional` with various None scenarios
-- [ ] 3.8 Test equality and hashing
+- [x] 3.1 Test all factory methods (`from_optional`)
+- [x] 3.2 Test predicates with empty/occupied cells
+- [x] 3.3 Test extraction methods (including exceptions)
+- [x] 3.4 Test all `evaluate_or_*` variants
+- [x] 3.5 Test `transform`
+- [x] 3.6 Test `or_else` chaining
+- [x] 3.7 Test `from_optional` with various None scenarios
+- [x] 3.8 Test equality and hashing
 
 ## 4. Documentation
-- [ ] 4.1 Add `AbsenceCell` to API reference
-- [ ] 4.2 Add usage examples (CLI bridge, conditional transforms)
-- [ ] 4.3 Update README with `AbsenceCell` overview
+- [x] 4.1 Add `AbsenceCell` to API reference
+- [x] 4.2 Add usage examples (conditional transforms)
+- [x] 4.3 Update README with `AbsenceCell` overview

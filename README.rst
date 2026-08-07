@@ -56,6 +56,8 @@ Key Features ⭐
 * 1️⃣  **Absence Sentinel**: A falsey singleton which represents absence.
 * 🏭 **Absence Factory**: Create custom absence sentinels for package-specific
   or arbitrary needs.
+* 📦 **Absence Cell**: Immutable container wrapping absent values with
+  conditional extraction, evaluation, and transformation API.
 * 𝒇 **Predicate Functions**: Determine if a value is absent.
 * 🔍 **Type Support**: Type alias for optional values which may be absent.
   (Similar to ``typing.Optional`` and its relation to ``None``.)
@@ -114,6 +116,17 @@ Create package-specific absence sentinels:
 >>> MISSING = AbsenceFactory( )
 >>> bool( MISSING )
 False
+
+Wrap absent values with AbsenceCell for conditional chains:
+
+>>> from absence import AbsenceCell, absent
+>>> def adjust_columns( width: int | type(absent) ) -> int:
+...     ''' Returns adjusted width, or 0 if width is absent. '''
+...     return AbsenceCell( width ).evaluate_or( lambda w: w - 4, 0 )
+>>> adjust_columns( 80 )
+76
+>>> adjust_columns( absent )
+0
 
 
 Use Cases 🎯

@@ -7,7 +7,7 @@ simplicity and type safety.
 
 ## Major Components
 
-The system consists of four primary components organized in a flat module
+The system consists of five primary components organized in a flat module
 structure:
 
 ### Sentinel Factory (`objects.py`)
@@ -29,6 +29,15 @@ structure:
   - `is_present()`: Positive-form type guard, narrows `Absential[T]` to `T`
   - `Absential[T]`: Type alias equivalent to `T | AbsentSingleton`
 
+### Cell Container (`cell.py`)
+
+**AbsenceCell**
+  Immutable generic container wrapping `Absential[T]` with a rich API for
+  conditional operations. Provides safe extraction (`extract`, `extract_or`),
+  evaluation (`evaluate_or`, `evaluate_or_true`, `evaluate_or_false`),
+  transformation (`transform`), chaining (`or_else`), and Optional bridging
+  (`from_optional`, `to_optional`).
+
 ### Builtins Integration (`installers.py`)
 
 **install() function**
@@ -45,6 +54,9 @@ structure:
 
 **OperationValidityError**
   Raised when invalid operations are attempted (e.g., pickling absence sentinels).
+
+**CellStateError**
+  Raised when extracting from an empty AbsenceCell. Inherits from ValueError.
 
 ### Import Management (`__/` subpackage)
 
@@ -67,6 +79,8 @@ __init__.py
 │   ├── is_absent() (predicate)
 │   ├── is_present() (predicate)
 │   └── Absential (type alias)
+├── imports from cell.py
+│   └── AbsenceCell (container)
 ├── imports from installers.py
 │   └── install() (builtins integration)
 └── imports from exceptions.py
@@ -74,6 +88,7 @@ __init__.py
 
 All modules depend on __/ for imports
 objects.py depends on exceptions.py and falsifier
+cell.py depends on objects.py and exceptions.py
 installers.py depends on objects.py
 No circular dependencies
 ```

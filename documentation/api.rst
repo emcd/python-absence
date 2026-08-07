@@ -37,6 +37,12 @@ Module ``absence.objects``
 .. automodule:: absence.objects
 
 
+Module ``absence.cell``
+-------------------------------------------------------------------------------
+
+.. automodule:: absence.cell
+
+
 Module ``absence.installers``
 -------------------------------------------------------------------------------
 

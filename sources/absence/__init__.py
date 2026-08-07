@@ -33,6 +33,7 @@ from . import exceptions
 
 from .installers import *
 from .objects import *
+from .cell import *
 
 
 __version__ = '1.2a0'

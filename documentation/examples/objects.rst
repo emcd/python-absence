@@ -135,6 +135,45 @@ The ``AbsenceFactory`` allows creation of package-specific absence sentinels:
     'ConfigValue.UNSET'
 
 
+AbsenceCell Container
+-------------------------------------------------------------------------------
+
+The ``AbsenceCell`` wraps an ``Absential[T]`` value with a rich conditional API,
+eliminating repeated ``is_absent`` guards:
+
+.. doctest:: Absence
+
+    >>> from absence import AbsenceCell, absent
+    >>> # Safe extraction with fallbacks
+    >>> AbsenceCell( 42 ).extract( )
+    42
+    >>> AbsenceCell( absent ).extract_or( 0 )
+    0
+    >>> # Conditional evaluation
+    >>> AbsenceCell( 80 ).evaluate_or( lambda w: w - 4, 0 )
+    76
+    >>> AbsenceCell( absent ).evaluate_or_true( lambda w: w > 10 )
+    True
+    >>> # Transformation preserves absence
+    >>> result = AbsenceCell( 5 ).transform( lambda n: n * 2 )
+    >>> result.extract( )
+    10
+    >>> AbsenceCell( absent ).transform( lambda n: n * 2 ).is_absent( )
+    True
+    >>> # Bridging Optional[T] from CLI or config sources
+    >>> AbsenceCell.from_optional( None ).is_absent( )
+    True
+    >>> AbsenceCell.from_optional( 42 ).extract( )
+    42
+    >>> AbsenceCell.from_optional(
+    ...     None, none_is_absent = False ).extract( )
+    >>> # Chaining fallbacks
+    >>> empty = AbsenceCell( )
+    >>> fallback = AbsenceCell( 99 )
+    >>> empty.or_else( fallback ).extract( )
+    99
+
+
 Builtins Integration
 -------------------------------------------------------------------------------
 

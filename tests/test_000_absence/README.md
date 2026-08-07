@@ -8,6 +8,7 @@ Test modules follow a numbered convention reflecting subsystem priority:
 - `test_010_base.py` — Common infrastructure (shared imports)
 - `test_100_objects.py` — Sentinel factory, global singleton, predicates
 - `test_200_installers.py` — Builtins integration
+- `test_300_cell.py` — AbsenceCell container
 
 Modules 000 and 010 originate from the project Copier template and should
 not be project-modified to avoid future merge conflicts.
