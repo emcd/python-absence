@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "agentmux": {
+      "command": "agentmux",
+      "args": [
+        "host", "mcp",
+        "--bundle", "python-foundation"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [ "-y", "@upstash/context7-mcp" ]
+    },
+    "nb": {
+      "command": "nb-mcp",
+      "args": [
+        "--notebook", "python-absence",
+        "--no-commit-signing"
+      ]
+    }
+  }
+}

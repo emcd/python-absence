@@ -21,8 +21,6 @@
 ''' Absence sentinel factory, global singleton, and helper functions. '''
 
 
-from __future__ import annotations
-
 import falsifier as _falsifier
 
 from . import __
@@ -35,11 +33,11 @@ class AbsenceFactory( _falsifier.Falsifier ):
         self,
         repr_function: __.typx.Annotated[
             __.typx.Optional[ __.cabc.Callable[ [ __.typx.Self ], str ] ],
-            __.dynadoc.Doc( ''' Function for __repr__. ''' )
+            __.ddoc.Doc( ''' Function for __repr__. ''' )
         ] = None,
         str_function: __.typx.Annotated[
             __.typx.Optional[ __.cabc.Callable[ [ __.typx.Self ], str ] ],
-            __.dynadoc.Doc( ''' Function for __str__. ''' )
+            __.ddoc.Doc( ''' Function for __str__. ''' )
         ] = None,
     ) -> None:
         self._repr_function = repr_function
@@ -78,7 +76,7 @@ class AbsentSingleton( AbsenceFactory ):
 
 
 absent: __.typx.Annotated[
-    AbsentSingleton, __.dynadoc.Doc( ''' Global absence sentinel. ''' )
+    AbsentSingleton, __.ddoc.Doc( ''' Global absence sentinel. ''' )
 ] = AbsentSingleton( )
 
 
@@ -97,9 +95,14 @@ _V = __.typx.TypeVar( '_V' )
 Absential: __.typx.TypeAlias = _V | AbsentSingleton
 
 
+def is_present( value: Absential[ _V ] ) -> __.typx.TypeIs[ _V ]:
+    ''' Checks if value is present (not the global absent sentinel). '''
+    return value is not absent
+
+
 def _typecheck_me( arg: Absential[ int ] = absent ): # pragma: no cover
     # Note: Not part of public interface.
     #       Exists to help identify type issues
     #       since test code is exempt from type checking at this time.
-    if is_absent( arg ): return 'absent'
-    return arg
+    if is_present( arg ): return arg
+    return 'absent'

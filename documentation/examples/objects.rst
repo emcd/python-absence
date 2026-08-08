@@ -31,7 +31,7 @@ The ``absent`` sentinel can be used directly to represent missing values:
 
 .. doctest:: Absence
 
-    >>> from absence import absent, is_absent
+    >>> from absence import absent, is_absent, is_present
     >>> bool( absent )  # Always evaluates to False
     False
     >>> str( absent )   # Simple string form
@@ -42,6 +42,10 @@ The ``absent`` sentinel can be used directly to represent missing values:
     True
     >>> is_absent( None )
     False
+    >>> is_present( absent )  # Positive-form checking
+    False
+    >>> is_present( None )   # None is present, not absent
+    True
 
 
 Type Alias and Predicate Function
@@ -53,7 +57,7 @@ query for NULL" (``None``):
 
 .. doctest:: Absence
 
-    >>> from absence import absent, is_absent, Absential
+    >>> from absence import absent, is_present, Absential
     >>> def build_query(
     ...     name: Absential[ str | None ] = absent,
     ...     email: Absential[ str | None ] = absent,
@@ -66,12 +70,12 @@ query for NULL" (``None``):
     ...     '''
     ...     conditions = [ ]
     ...     params = [ ]
-    ...     if not is_absent( name ):
+    ...     if is_present( name ):
     ...         if name is None: conditions.append( 'name IS NULL' )
     ...         else:
     ...             conditions.append( 'name = ?' )
     ...             params.append( name )
-    ...     if not is_absent( email ):
+    ...     if is_present( email ):
     ...         if email is None: conditions.append( 'email IS NULL' )
     ...         else:
     ...             conditions.append( 'email = ?' )
@@ -129,6 +133,63 @@ The ``AbsenceFactory`` allows creation of package-specific absence sentinels:
     '<unset>'
     >>> repr( config.value )  # Custom repr
     'ConfigValue.UNSET'
+
+
+AbsenceCell Container
+-------------------------------------------------------------------------------
+
+The ``AbsenceCell`` wraps an ``Absential[T]`` value with a rich conditional API,
+eliminating repeated ``is_absent`` guards.
+
+Safe extraction with fallbacks:
+
+.. doctest:: Absence
+
+    >>> from absence import AbsenceCell, absent
+    >>> AbsenceCell( 42 ).extract( )
+    42
+    >>> AbsenceCell( absent ).extract_or( 0 )
+    0
+
+Conditional evaluation applies a function only when the cell is occupied,
+or returns a default when empty:
+
+.. doctest:: Absence
+
+    >>> AbsenceCell( 80 ).evaluate_or( lambda w: w - 4, 0 )
+    76
+    >>> AbsenceCell( absent ).evaluate_or_true( lambda w: w > 10 )
+    True
+
+Transformation preserves absence — an empty cell stays empty:
+
+.. doctest:: Absence
+
+    >>> result = AbsenceCell( 5 ).transform( lambda n: n * 2 )
+    >>> result.extract( )
+    10
+    >>> AbsenceCell( absent ).transform( lambda n: n * 2 ).is_absent( )
+    True
+
+Bridging ``Optional[T]`` from CLI or config sources:
+
+.. doctest:: Absence
+
+    >>> AbsenceCell.from_optional( None ).is_absent( )
+    True
+    >>> AbsenceCell.from_optional( 42 ).extract( )
+    42
+    >>> AbsenceCell.from_optional(
+    ...     None, none_is_absent = False ).extract( )
+
+Chaining fallbacks:
+
+.. doctest:: Absence
+
+    >>> empty = AbsenceCell( )
+    >>> fallback = AbsenceCell( 99 )
+    >>> empty.or_else( fallback ).extract( )
+    99
 
 
 Builtins Integration

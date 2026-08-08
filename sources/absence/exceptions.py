@@ -40,3 +40,10 @@ class OperationValidityError( Omnierror, RuntimeError, TypeError ):
 
     def __init__( self, name: str ) -> None:
         super( ).__init__( f"Operation {name!r} is not valid on this object." )
+
+
+class CellStateError( Omnierror, ValueError ):
+    ''' Attempt to interact with cell in incompatible state. '''
+
+    def __init__( self ) -> None:
+        super( ).__init__( 'Cannot extract from empty cell.' )

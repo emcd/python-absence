@@ -27,15 +27,17 @@
 
 
 from . import __
-# --- BEGIN: Injected by Copier ---
 from . import exceptions
+# --- BEGIN: Injected by Copier ---
 # --- END: Injected by Copier ---
 
+from .adapters import *
+from .cell import *
 from .installers import *
 from .objects import *
 
 
-__version__ = '1.1.1'
+__version__ = '1.2'
 
 
 __.ccstd.finalize_module( __name__, recursive = True )

@@ -23,6 +23,17 @@ Release Notes
 
 .. towncrier release notes start
 
+absence 1.2 (2026-08-07)
+========================
+
+Enhancements
+------------
+
+- Add ``AbsenceCell[T]`` immutable container wrapping ``Absential[T]`` with a rich API for conditional extraction, evaluation, transformation, chaining, and Optional bridging.
+- Add ``adapt_dataclass()`` helper to bridge CLI dataclasses (which use ``None`` for not-provided) to functions with ``Absential[T]`` parameters by omitting fields that match a configurable skip value.
+- Add ``is_present()`` predicate as positive-form counterpart to ``is_absent()``. Returns ``TypeIs[T]`` to enable type narrowing without negation.
+
+
 Absence 1.1.1 (2025-07-03)
 ==========================
 

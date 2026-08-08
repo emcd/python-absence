@@ -17,7 +17,7 @@
    +--------------------------------------------------------------------------+
 
 *******************************************************************************
-                                    absence                                    
+                                    absence
 *******************************************************************************
 
 .. image:: https://img.shields.io/pypi/v/absence
@@ -56,6 +56,8 @@ Key Features ⭐
 * 1️⃣  **Absence Sentinel**: A falsey singleton which represents absence.
 * 🏭 **Absence Factory**: Create custom absence sentinels for package-specific
   or arbitrary needs.
+* 📦 **Absence Cell**: Immutable container wrapping absent values with
+  conditional extraction, evaluation, and transformation API.
 * 𝒇 **Predicate Functions**: Determine if a value is absent.
 * 🔍 **Type Support**: Type alias for optional values which may be absent.
   (Similar to ``typing.Optional`` and its relation to ``None``.)
@@ -77,7 +79,7 @@ Examples 💡
 Use the ``absent`` sentinel to represent missing values:
 
 >>> from dataclasses import dataclass
->>> from absence import absent, is_absent, Absential
+>>> from absence import absent, is_present, Absential
 >>> @dataclass
 ... class User:
 ...     name: str | None
@@ -92,8 +94,8 @@ Use the ``absent`` sentinel to represent missing values:
 ...         Absent value means "don't change".
 ...         None value means "clear field".
 ...     '''
-...     if not is_absent( name ): user.name = name
-...     if not is_absent( email ): user.email = email
+...     if is_present( name ): user.name = name
+...     if is_present( email ): user.email = email
 ...     return user
 >>> user = User( name = 'Alice', email = 'alice@example.com' )
 >>> # Clear name but leave email unchanged
@@ -114,6 +116,17 @@ Create package-specific absence sentinels:
 >>> MISSING = AbsenceFactory( )
 >>> bool( MISSING )
 False
+
+Wrap absent values with AbsenceCell for conditional chains:
+
+>>> from absence import AbsenceCell, absent, Absential
+>>> def adjust_columns( width: Absential[ int ] ) -> int:
+...     ''' Returns adjusted width, or 0 if width is absent. '''
+...     return AbsenceCell( width ).evaluate_or( lambda w: w - 4, 0 )
+>>> adjust_columns( 80 )
+76
+>>> adjust_columns( absent )
+0
 
 
 Use Cases 🎯
@@ -158,7 +171,47 @@ See `PEP 661 ("Sentinel Values") <https://peps.python.org/pep-0661/>`_,
 more details on alternatives.
 
 
-`More Flair <https://www.imdb.com/title/tt0151804/characters/nm0431918>`_
+Installation 📦
+===============================================================================
+
+Method: Install Python Package
+-------------------------------------------------------------------------------
+
+Install via `uv <https://github.com/astral-sh/uv/blob/main/README.md>`_ ``pip``
+command:
+
+::
+
+    uv pip install absence
+
+Or, install via ``pip``:
+
+::
+
+    pip install absence
+
+
+.. todo:: Provide usage examples and additional content.
+
+
+Contribution 🤝
+===============================================================================
+
+Contribution to this project is welcome! However, it must follow the `code of
+conduct
+<https://emcd.github.io/python-project-common/stable/sphinx-html/common/conduct.html>`_
+for the project.
+
+Please file bug reports and feature requests in the `issue tracker
+<https://github.com/emcd/python-absence/issues>`_ or submit `pull
+requests <https://github.com/emcd/python-absence/pulls>`_ to
+improve the source code or documentation.
+
+For development guidance and standards, please see the `development guide
+<https://emcd.github.io/python-absence/stable/sphinx-html/contribution.html#development>`_.
+
+
+Additional Indicia
 ===============================================================================
 
 .. image:: https://img.shields.io/github/last-commit/emcd/python-absence
@@ -198,24 +251,30 @@ Other Projects by This Author 🌟
 ===============================================================================
 
 
-* `python-accretive <https://github.com/emcd/python-accretive>`_ (`accretive <https://pypi.org/project/accretive/>`_ on PyPI) 
+* `python-accretive <https://github.com/emcd/python-accretive>`_ (`accretive <https://pypi.org/project/accretive/>`_ on PyPI)
 
   🌌 A Python library package which provides **accretive data structures** - collections which can grow but never shrink.
-* `python-classcore <https://github.com/emcd/python-classcore>`_ (`classcore <https://pypi.org/project/classcore/>`_ on PyPI) 
+* `python-classcore <https://github.com/emcd/python-classcore>`_ (`classcore <https://pypi.org/project/classcore/>`_ on PyPI)
 
   🏭 A Python library package which provides **foundational class factories and decorators** for providing classes with attributes immutability and concealment and other custom behaviors.
-* `python-dynadoc <https://github.com/emcd/python-dynadoc>`_ (`dynadoc <https://pypi.org/project/dynadoc/>`_ on PyPI) 
+* `python-detextive <https://github.com/emcd/python-detextive>`_ (`detextive <https://pypi.org/project/detextive/>`_ on PyPI)
+
+  🕵️ A Python library which provides consolidated text detection capabilities for reliable content analysis. Offers MIME type detection, character set detection, and line separator processing.
+* `python-dynadoc <https://github.com/emcd/python-dynadoc>`_ (`dynadoc <https://pypi.org/project/dynadoc/>`_ on PyPI)
 
   📝 A Python library package which bridges the gap between **rich annotations** and **automatic documentation generation** with configurable renderers and support for reusable fragments.
-* `python-falsifier <https://github.com/emcd/python-falsifier>`_ (`falsifier <https://pypi.org/project/falsifier/>`_ on PyPI) 
+* `python-falsifier <https://github.com/emcd/python-falsifier>`_ (`falsifier <https://pypi.org/project/falsifier/>`_ on PyPI)
 
   🎭 A very simple Python library package which provides a **base class for falsey objects** - objects that evaluate to ``False`` in boolean contexts.
-* `python-frigid <https://github.com/emcd/python-frigid>`_ (`frigid <https://pypi.org/project/frigid/>`_ on PyPI) 
+* `python-frigid <https://github.com/emcd/python-frigid>`_ (`frigid <https://pypi.org/project/frigid/>`_ on PyPI)
 
   🔒 A Python library package which provides **immutable data structures** - collections which cannot be modified after creation.
-* `python-icecream-truck <https://github.com/emcd/python-icecream-truck>`_ (`icecream-truck <https://pypi.org/project/icecream-truck/>`_ on PyPI) 
+* `python-icecream-truck <https://github.com/emcd/python-icecream-truck>`_ (`icecream-truck <https://pypi.org/project/icecream-truck/>`_ on PyPI)
 
   🍦 **Flavorful Debugging** - A Python library which enhances the powerful and well-known ``icecream`` package with flavored traces, configuration hierarchies, customized outputs, ready-made recipes, and more.
-* `python-mimeogram <https://github.com/emcd/python-mimeogram>`_ (`mimeogram <https://pypi.org/project/mimeogram/>`_ on PyPI) 
+* `python-librovore <https://github.com/emcd/python-librovore>`_ (`librovore <https://pypi.org/project/librovore/>`_ on PyPI)
+
+  🐲 **Documentation Search Engine** - An intelligent documentation search and extraction tool that provides both a command-line interface for humans and an MCP (Model Context Protocol) server for AI agents. Search across Sphinx and MkDocs sites with fuzzy matching, extract clean markdown content, and integrate seamlessly with AI development workflows.
+* `python-mimeogram <https://github.com/emcd/python-mimeogram>`_ (`mimeogram <https://pypi.org/project/mimeogram/>`_ on PyPI)
 
   📨 A command-line tool for **exchanging collections of files with Large Language Models** - bundle multiple files into a single clipboard-ready document while preserving directory structure and metadata... good for code reviews, project sharing, and LLM interactions.
