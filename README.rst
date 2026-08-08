@@ -191,9 +191,6 @@ Or, install via ``pip``:
     pip install absence
 
 
-.. todo:: Provide usage examples and additional content.
-
-
 Contribution 🤝
 ===============================================================================
 
