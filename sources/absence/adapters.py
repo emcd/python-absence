@@ -18,20 +18,37 @@
 #============================================================================#
 
 
-''' Common imports used throughout the package. '''
-
-# ruff: noqa: F401
+''' Helpers for adapting dataclass instances to Absential parameters.'''
 
 
-import collections.abc as   cabc
-import                      dataclasses as dcls
-import                      types
+from __future__ import annotations
 
-import classcore.standard as    ccstd
-import dynadoc as               ddoc
-import typing_extensions as     typx
-# --- BEGIN: Injected by Copier ---
-# --- END: Injected by Copier ---
+from . import __
+from .exceptions import OperationValidityError as _OperationValidityError
 
-# --- BEGIN: Injected by Copier ---
-# --- END: Injected by Copier ---
+
+def adapt_dataclass(
+    obj: __.typx.Annotated[
+        object,
+        __.ddoc.Doc( ''' Dataclass instance to adapt. ''' ),
+    ],
+    *,
+    skip_value: __.typx.Annotated[
+        object,
+        __.ddoc.Doc( ''' Field value to omit from result. ''' ),
+    ] = None,
+) -> dict[ str, __.typx.Any ]:
+    ''' Extracts fields from a dataclass instance, skipping sentinel values.
+
+        Useful for bridging CLI dataclasses (which use None for "not
+        provided") to functions with Absential parameters (which default
+        to absent). Fields whose value matches skip_value by identity are
+        omitted, allowing function defaults to apply.
+    '''
+    if not __.dcls.is_dataclass( obj ) or isinstance( obj, type ):
+        raise _OperationValidityError( 'adapt_dataclass' )
+    return {
+        field.name: getattr( obj, field.name )
+        for field in __.dcls.fields( obj )
+        if getattr( obj, field.name ) is not skip_value
+    }

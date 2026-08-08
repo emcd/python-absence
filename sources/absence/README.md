@@ -38,6 +38,15 @@ structure:
   transformation (`transform`), chaining (`or_else`), and Optional bridging
   (`from_optional`, `to_optional`).
 
+### Dataclass Adapters (`adapters.py`)
+
+**adapt_dataclass()**
+  Extracts fields from a dataclass instance into a dictionary, omitting
+  fields whose value matches a configurable skip value (default: `None`).
+  Bridges CLI dataclasses (which use `None` for "not provided") to functions
+  with `Absential[T]` parameters (which default to `absent`). Works with
+  TypedDict + `cast()` for type-safe call sites.
+
 ### Builtins Integration (`installers.py`)
 
 **install() function**
@@ -81,6 +90,8 @@ __init__.py
 │   └── Absential (type alias)
 ├── imports from cell.py
 │   └── AbsenceCell (container)
+├── imports from adapters.py
+│   └── adapt_dataclass() (dataclass helper)
 ├── imports from installers.py
 │   └── install() (builtins integration)
 └── imports from exceptions.py
@@ -89,6 +100,7 @@ __init__.py
 All modules depend on __/ for imports
 objects.py depends on exceptions.py and falsifier
 cell.py depends on objects.py and exceptions.py
+adapters.py depends on exceptions.py
 installers.py depends on objects.py
 No circular dependencies
 ```

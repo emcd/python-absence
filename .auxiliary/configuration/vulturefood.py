@@ -19,3 +19,4 @@ AbsenceCell.evaluate_or_false
 AbsenceCell.transform
 AbsenceCell.or_else
 AbsenceCell.to_optional
+adapt_dataclass

@@ -31,6 +31,7 @@ from . import exceptions
 # --- BEGIN: Injected by Copier ---
 # --- END: Injected by Copier ---
 
+from .adapters import *
 from .cell import *
 from .installers import *
 from .objects import *
