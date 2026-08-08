@@ -21,8 +21,6 @@
 ''' Immutable container wrapping Absential[T] with conditional API. '''
 
 
-from __future__ import annotations
-
 from . import __
 from .exceptions import CellStateError as _CellStateError
 from .objects import Absential as _Absential

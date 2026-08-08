@@ -21,8 +21,6 @@
 ''' Helpers for adapting dataclass instances to Absential parameters.'''
 
 
-from __future__ import annotations
-
 from . import __
 from .exceptions import OperationValidityError as _OperationValidityError
 

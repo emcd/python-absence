@@ -21,8 +21,6 @@
 ''' Convenience to expose global sentinel and sentinel checker in builtins. '''
 
 
-from __future__ import annotations
-
 from . import __
 
 

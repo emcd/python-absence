@@ -21,8 +21,6 @@
 ''' Absence sentinel factory, global singleton, and helper functions. '''
 
 
-from __future__ import annotations
-
 import falsifier as _falsifier
 
 from . import __
