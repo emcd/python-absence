@@ -37,7 +37,7 @@ from .installers import *
 from .objects import *
 
 
-__version__ = '1.2a0'
+__version__ = '1.3a0'
 
 
 __.ccstd.finalize_module( __name__, recursive = True )
