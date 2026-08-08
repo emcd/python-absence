@@ -15,16 +15,17 @@ absent if infinite_lines else columns_max - 4
 An `AbsenceCell` container would provide a richer API for these patterns:
 
 ```python
-if columns_max.evaluate_or_true(lambda n: address_size <= n):
+cell = AbsenceCell( columns_max )
+if cell.evaluate_or_true( lambda n: address_size <= n ):
     ...
-adjusted = columns_max.map(lambda n: n - 4)
+adjusted = cell.transform( lambda n: n - 4 )
 ```
 
 ## What Changes
 
 - Add `AbsenceCell` class to `sources/absence/cell.py`
 - Immutable container wrapping `Absential[T]`
-- Rich API: `map`, `flat_map`, `filter`, `evaluate_or_*`, `extract`, `from_optional`
+- Rich API: `transform`, `evaluate_or`, `evaluate_or_true`, `evaluate_or_false`, `extract`, `extract_or`, `extract_or_compute`, `or_else`, `to_optional`, `from_optional`
 - Bridges `Optional[T]` (CLI) to `Absential[T]` via `from_optional`
 
 ## Impact

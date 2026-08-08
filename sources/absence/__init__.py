@@ -31,9 +31,9 @@ from . import exceptions
 # --- BEGIN: Injected by Copier ---
 # --- END: Injected by Copier ---
 
+from .cell import *
 from .installers import *
 from .objects import *
-from .cell import *
 
 
 __version__ = '1.2a0'

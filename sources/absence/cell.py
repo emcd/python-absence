@@ -44,14 +44,50 @@ class AbsenceCell( __.typx.Generic[ _T ] ):
 
     __slots__ = ( '_value', )
 
+    _value: _Absential[ _T ]
+
     def __init__(
         self,
         value: __.typx.Annotated[
             _Absential[ _T ],
-            __.ddoc.Doc( ''' Value to wrap. Defaults to absent. ''' )
+            __.ddoc.Doc( ''' Value to wrap. Defaults to absent. ''' ),
         ] = _absent,
     ) -> None:
-        self._value: _Absential[ _T ] = value
+        object.__setattr__( self, '_value', value )
+
+
+    def __setattr__( self, name: str, value: object ) -> None:
+        raise AttributeError( 'AbsenceCell is immutable.' )  # noqa: TRY003
+
+
+    def __delattr__( self, name: str ) -> None:
+        raise AttributeError( 'AbsenceCell is immutable.' )  # noqa: TRY003
+
+
+    def __bool__( self ) -> bool:
+        return self._value is not _absent
+
+
+    def __eq__( self, other: object ) -> bool:
+        if not isinstance( other, AbsenceCell ): return NotImplemented
+        # isinstance narrows to AbsenceCell but drops the type parameter,
+        # so other._value is Absential[Unknown]. The == comparison is
+        # correct regardless: absent uses identity, values use __eq__.
+        return self._value == other._value  # pyright: ignore
+
+
+    def __hash__( self ) -> int:
+        return hash( self._value )
+
+
+    def __repr__( self ) -> str:
+        if self._value is _absent: return 'AbsenceCell( )'
+        return f'AbsenceCell( {self._value!r} )'
+
+
+    def __str__( self ) -> str:
+        if self._value is _absent: return 'absent'
+        return str( self._value )
 
 
     @classmethod
@@ -59,11 +95,13 @@ class AbsenceCell( __.typx.Generic[ _T ] ):
         cls,
         value: __.typx.Annotated[
             _T | None,
-            __.ddoc.Doc( ''' Optional value to bridge. ''' ) ],
+            __.ddoc.Doc( ''' Optional value to bridge. ''' ),
+        ],
         none_is_absent: __.typx.Annotated[
             bool,
             __.ddoc.Doc(
-                ''' Whether None produces empty cell. ''' ) ] = True,
+                ''' Whether None produces empty cell. ''' ),
+        ] = True,
     ) -> __.typx.Self:
         ''' Creates cell from Optional[T], bridging None semantics.
 
@@ -75,18 +113,47 @@ class AbsenceCell( __.typx.Generic[ _T ] ):
         return cls( value )  # type: ignore[arg-type]
 
 
-    def is_absent( self ) -> bool:
-        ''' Checks if cell contains the absent sentinel. '''
-        return self._value is _absent
+    def evaluate_or(
+        self,
+        func: __.typx.Annotated[
+            __.cabc.Callable[ [ _T ], _R ],
+            __.ddoc.Doc( ''' Function applied to contained value. ''' ),
+        ],
+        default: __.typx.Annotated[
+            _R,
+            __.ddoc.Doc( ''' Result for empty cells. ''' ),
+        ],
+    ) -> _R:
+        ''' Applies func to value, or returns default if cell is empty. '''
+        value = self._value
+        if _is_absent( value ): return default
+        return func( value )
 
 
-    def is_present( self ) -> bool:
-        ''' Checks if cell contains a present value. '''
-        return self._value is not _absent
+    def evaluate_or_false(
+        self,
+        predicate: __.typx.Annotated[
+            __.cabc.Callable[ [ _T ], bool ],
+            __.ddoc.Doc( ''' Predicate applied to contained value. ''' ),
+        ],
+    ) -> bool:
+        ''' Applies predicate, returning False if cell is empty. '''
+        value = self._value
+        if _is_absent( value ): return False
+        return predicate( value )
 
 
-    def __bool__( self ) -> bool:
-        return self._value is not _absent
+    def evaluate_or_true(
+        self,
+        predicate: __.typx.Annotated[
+            __.cabc.Callable[ [ _T ], bool ],
+            __.ddoc.Doc( ''' Predicate applied to contained value. ''' ),
+        ],
+    ) -> bool:
+        ''' Applies predicate, returning True if cell is empty. '''
+        value = self._value
+        if _is_absent( value ): return True
+        return predicate( value )
 
 
     def extract( self ) -> _T:
@@ -103,7 +170,9 @@ class AbsenceCell( __.typx.Generic[ _T ] ):
     def extract_or(
         self,
         default: __.typx.Annotated[
-            _T, __.ddoc.Doc( ''' Fallback for empty cells. ''' ) ],
+            _T,
+            __.ddoc.Doc( ''' Fallback for empty cells. ''' ),
+        ],
     ) -> _T:
         ''' Extracts value, or returns default if cell is empty. '''
         value = self._value
@@ -115,7 +184,8 @@ class AbsenceCell( __.typx.Generic[ _T ] ):
         self,
         factory: __.typx.Annotated[
             __.cabc.Callable[ [ ], _T ],
-            __.ddoc.Doc( ''' Factory called for empty cells. ''' ) ],
+            __.ddoc.Doc( ''' Factory called for empty cells. ''' ),
+        ],
     ) -> _T:
         ''' Extracts value, or returns factory() if cell is empty. '''
         value = self._value
@@ -123,61 +193,22 @@ class AbsenceCell( __.typx.Generic[ _T ] ):
         return value
 
 
-    def evaluate_or(
-        self,
-        func: __.typx.Annotated[
-            __.cabc.Callable[ [ _T ], _R ],
-            __.ddoc.Doc( ''' Function applied to contained value. ''' ) ],
-        default: __.typx.Annotated[
-            _R, __.ddoc.Doc( ''' Result for empty cells. ''' ) ],
-    ) -> _R:
-        ''' Applies func to value, or returns default if cell is empty. '''
-        value = self._value
-        if _is_absent( value ): return default
-        return func( value )
+    def is_absent( self ) -> bool:
+        ''' Checks if cell contains the absent sentinel. '''
+        return self._value is _absent
 
 
-    def evaluate_or_true(
-        self,
-        predicate: __.typx.Annotated[
-            __.cabc.Callable[ [ _T ], bool ],
-            __.ddoc.Doc( ''' Predicate applied to contained value. ''' ) ],
-    ) -> bool:
-        ''' Applies predicate, returning True if cell is empty. '''
-        value = self._value
-        if _is_absent( value ): return True
-        return predicate( value )
-
-
-    def evaluate_or_false(
-        self,
-        predicate: __.typx.Annotated[
-            __.cabc.Callable[ [ _T ], bool ],
-            __.ddoc.Doc( ''' Predicate applied to contained value. ''' ) ],
-    ) -> bool:
-        ''' Applies predicate, returning False if cell is empty. '''
-        value = self._value
-        if _is_absent( value ): return False
-        return predicate( value )
-
-
-    def transform(
-        self,
-        func: __.typx.Annotated[
-            __.cabc.Callable[ [ _T ], _R ],
-            __.ddoc.Doc( ''' Function applied to contained value. ''' ) ],
-    ) -> 'AbsenceCell[ _R ]':
-        ''' Returns new cell with func applied, or empty cell. '''
-        value = self._value
-        if _is_absent( value ): return AbsenceCell( )
-        return AbsenceCell( func( value ) )
+    def is_present( self ) -> bool:
+        ''' Checks if cell contains a present value. '''
+        return self._value is not _absent
 
 
     def or_else(
         self,
         alternative: __.typx.Annotated[
             'AbsenceCell[ _T ]',
-            __.ddoc.Doc( ''' Cell returned if self is empty. ''' ) ],
+            __.ddoc.Doc( ''' Cell returned if self is empty. ''' ),
+        ],
     ) -> 'AbsenceCell[ _T ]':
         ''' Returns self if occupied, or alternative if empty. '''
         if self._value is _absent: return alternative
@@ -191,25 +222,14 @@ class AbsenceCell( __.typx.Generic[ _T ] ):
         return value
 
 
-    def __eq__( self, other: object ) -> bool:
-        if not isinstance( other, AbsenceCell ): return NotImplemented
-        sv: object = self._value
-        ov: object = __.typx.cast(
-            object, other._value )  # pyright: ignore[reportUnknownMemberType]
-        if sv is _absent: return ov is _absent
-        if ov is _absent: return False
-        return sv == ov
-
-
-    def __hash__( self ) -> int:
-        return hash( self._value )
-
-
-    def __repr__( self ) -> str:
-        if self._value is _absent: return 'AbsenceCell( )'
-        return f'AbsenceCell( {self._value!r} )'
-
-
-    def __str__( self ) -> str:
-        if self._value is _absent: return 'absent'
-        return str( self._value )
+    def transform(
+        self,
+        func: __.typx.Annotated[
+            __.cabc.Callable[ [ _T ], _R ],
+            __.ddoc.Doc( ''' Function applied to contained value. ''' ),
+        ],
+    ) -> 'AbsenceCell[ _R ]':
+        ''' Returns new cell with func applied, or empty cell. '''
+        value = self._value
+        if _is_absent( value ): return AbsenceCell( )
+        return AbsenceCell( func( value ) )

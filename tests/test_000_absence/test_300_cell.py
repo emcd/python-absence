@@ -48,6 +48,20 @@ def test_102_immutability_slots( ):
         cell.extra = 'forbidden'
 
 
+def test_103_value_non_reassignable( ):
+    ''' Stored value cannot be reassigned after construction. '''
+    cell = AbsenceCell( 42 )
+    with pytest.raises( AttributeError ):
+        cell._value = 99
+
+
+def test_104_value_non_deletable( ):
+    ''' Stored value cannot be deleted after construction. '''
+    cell = AbsenceCell( 42 )
+    with pytest.raises( AttributeError ):
+        del cell._value
+
+
 # 200: Predicates
 
 def test_200_is_absent_on_empty( ):

@@ -119,8 +119,8 @@ False
 
 Wrap absent values with AbsenceCell for conditional chains:
 
->>> from absence import AbsenceCell, absent
->>> def adjust_columns( width: int | type(absent) ) -> int:
+>>> from absence import AbsenceCell, absent, Absential
+>>> def adjust_columns( width: Absential[ int ] ) -> int:
 ...     ''' Returns adjusted width, or 0 if width is absent. '''
 ...     return AbsenceCell( width ).evaluate_or( lambda w: w - 4, 0 )
 >>> adjust_columns( 80 )
